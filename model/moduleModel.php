@@ -12,6 +12,20 @@ class moduleModel extends model{
 	}
 	
 	/**
+	 * @method 获取父类模块列表
+	 * @param void
+	 * @return array
+	 */
+	public function get_parent_module_list() {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND parent_module_id = "0"';
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[$row['id']] = $row;
+		}
+		return $data;
+	}
+	
+	/**
 	 * @method 获取指定模块信息
 	 */
 	public function get_module_list_detail($module_arr) {
