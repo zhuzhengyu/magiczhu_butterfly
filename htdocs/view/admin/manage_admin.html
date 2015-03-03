@@ -7,34 +7,73 @@
 		<link href="http://butterfly.com/ui/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
 		<script src="http://butterfly.com/ui/bootstrap3/js/bootstrap.min.js"></script>
 		<script src="http://butterfly.com/js/holder.js"></script>
+		<script>
+			function add_admin() {
+				$('#admin_info').dialog({
+					 height: 500,
+					 width: 550,
+					 modal: true,
+				});
+				$.get('manage_admin.php?action=edit_admin', function(result){
+					$('#admin_info').html(result);
+				});
+			}
+			
+			function edit_admin() {
+				$('#admin_info').dialog({
+					 height: 500,
+					 width: 550,
+					 modal: true,
+				});
+				$.get('manage_admin.php?action=edit_admin&admin_id', function(result){
+					$('#admin_info').html(result);
+				});
+			}
+		</script>
 	</head>
 <body>
 	<h2 class="sub-header">管理员管理</h2>
-		<div class="table-responsive">
-			<table class="table table-striped">
-				<thead>
-					<tr>
+	<div class="table-responsive">
+		<input class="btn btn-danger pull-right" type="button" value="新增管理员" onClick="add_admin();"/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
 					<th>ID号</th>
 					<th>账号</th>
 					<th>真实姓名</th>
 					<th>启用状态</th>
 					<th>模块权限</th>
 					<th>操作</th>
-					</tr>
-				</thead>
-				<tbody>
-				<?php foreach($admin_list as $k => $v) {?>
-					<tr>
-						<td><?php echo $v['id'];?></td>
-						<td><?php echo $v['username'];?></td>
-						<td><?php echo $v['name'];?></td>
-						<td><?php echo $v['delete_name'];?></td>
-						<td><?php echo $v['module_name'];?></td>
-						<td><input class="btn btn-info" type="button" value="编辑"></td>
-					</tr>
-				<?php }?>
-				</tbody>
-			</table>
-		</div>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($admin_list as $k => $v) {?>
+				<tr>
+					<td><?php echo $v['id'];?></td>
+					<td><?php echo $v['username'];?></td>
+					<td><?php echo $v['name'];?></td>
+					<td><?php echo $v['delete_name'];?></td>
+					<td><?php echo $v['module_name'];?></td>
+					<td><input class="btn btn-info" type="button" value="编辑"></td>
+				</tr>
+			<?php }?>
+			</tbody>
+		</table>
+	</div>
 </body>
+</html>
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+	</head>
+	<body>
+		<div id="admin_info" title="新增管理员" style="display:none;">
+			
+		</div>
+	</body>
 </html>

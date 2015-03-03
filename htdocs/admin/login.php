@@ -1,7 +1,6 @@
 <?php
 include ('D:\work\git\magiczhu_butterfly\config\config.php');//基本配置
-// include (MODEL_PATH . '/model.php');//数据库操作基类
-// include (MODEL_PATH . '/adminModel.php');//管理员类
+include (BASE_PATH . '/common/admin/common.php');//后台常用方法
 
 $adminModel = new adminModel();
 $param['username'] = isset($_POST['username']) ? $_POST['username'] : '';
