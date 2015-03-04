@@ -63,3 +63,4 @@ INSERT INTO `module` VALUES ('5', '资讯管理', 'manage_news.php', '0', '0', n
 INSERT INTO `module` VALUES ('6', '模块管理', 'manage_module.php', '0', '0', null, '2015-02-28 20:26:04');
 INSERT INTO `module` VALUES ('7', '首页管理', null, '1', '0', null, '2015-02-28 20:26:05');
 INSERT INTO `module` VALUES ('8', '管理员管理', 'manage_admin.php', '2', '0', null, '2015-03-01 22:11:10');
+
