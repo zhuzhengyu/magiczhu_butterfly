@@ -57,4 +57,35 @@ class adminModel extends model{
 		$row = $result->fetch_assoc();
 		return $row;
 	}
+	
+	/**
+	 * @method 新增管理员
+	 * @param array $param
+	 * @return bool
+	 */
+	public function add_admin($param) {
+		$username = $param['username'];
+		$name = $param['name'];
+		$password = $param['password'];
+		$power = $param['power'];
+		$sql = 'INSERT INTO ' . $this->table . ' (`username`, `name`, `password`, `power`) VALUES ("' . $username . '", "' . name . '", "' . $password . '", "' . $power . '")';
+		$this->con->query($sql);
+		return $this->con->affected_rows;
+	}
+
+	/**
+	 * @method 更新管理员
+	 * @param array $param
+	 * @return bool
+	 */
+	public function update_admin($param) {
+		$id = $param['id'];
+		$username = $param['username'];
+		$name = $param['name'];
+		$password = $param['password'];
+		$power = $param['power'];
+		$sql = 'UPDATE ' . $this->table . ' SET `username` = "' . $username . '", `name` = "' . $name . '", `password` = "' . $password . '", `power` = "' . $power . '" WHERE id = ' . intval($id);
+		$this->con->query($sql);
+		return $this->con->affected_rows;
+	}
 }

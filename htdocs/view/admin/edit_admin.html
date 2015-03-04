@@ -1,3 +1,4 @@
+	<input type="hidden" id="admin_id" name="admin_id" value="<?php echo $admin_detail['id'];?>"/>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="username">账号</label>
 		<div class="col-sm-9">
@@ -28,50 +29,40 @@
 			<?php foreach($parent_module_list as $k => $v) {?>
 			<div class="checkbox">
 				<label>
-					<input class="module_id_class" name="module_id" type="checkbox" value="<?php echo $v['id'];?>" <?php if ($v['is_check'] == true) {?>checked=true<?php } ?>/><?php echo $v['module_name'];?>
+					<input class="module_id_class" name="module_id[]" type="checkbox" value="<?php echo $v['id'];?>" <?php if (isset($v['is_check']) && $v['is_check'] == true) {?>checked=true<?php } ?>/><?php echo $v['module_name'];?>
 				</label>
 			</div>
 			<?php }?>
 		</div>
 	</div>
-	<input type="submit" class="btn btn-danger center-block" value="提交"  onClick="commit_edit_admin();"/>
+	<input type="submit" class="btn btn-danger center-block" value="提交" onClick="commit_edit_admin();"/>
 <script>
 	function commit_edit_admin() {
+		var admin_id = $('#admin_id').val();
 		var username = $('#username').val();
 		var password = $('#password').val();
 		var repassword = $('#repassword').val();
 		var name = $('#name').val();
-		var module_id = getEachCheckValue('module_id_class');
+		var module_id = new Array();
+		var count = 0;
+	    $('input:checkbox').each(function(){
+	        if(this.checked == true){
+	            module_id[count] = this.value;
+	            ++count;
+	        }
+	    });
+//		var module_id = getEachCheckValue('module_id_class');
 		if (password != repassword) {
 			alert('两次输入的密码不一致,请重新输入');
 		}
     
-		$.get('manage_admin.php?action=commit_edit_admin',{username:username, password:password, name:name, module_id:module_id}, function(result){
-			
-		});
-	}
-
-	function getEachCheckValue(class_name) {
-		var count = 0;
-		var result = new Array();
-		$.each($('.' + class_name), function(i, n) {
-			alert($(n).attr('checked'));
-			if ($(n).attr('checked') == true) {
-				result[count] = $(n).val();
+		$.post('manage_admin.php?action=commit_edit_admin',{admin_id:admin_id, username:username, password:password, name:name, module_id:module_id}, function(response){
+			$('#admin_info').dialog("close");
+			if (response == 'success') {
+				$("#response_success_div").dialog({modal: true,});
+			} else {
+				$("#response_fail_div").dialog({modal: true,});
 			}
-			++count;
 		});
-		return result;
-	}
-	
-	//获取指定CLASS的所有值
-	function getEachValue(class_name) {
-		var count = 0;
-		var result = new Array();
-		$.each($('.' + class_name), function(i, n) {
-			result[count] = $(n).val();
-			++count;
-		});
-		return result;
 	}
 </script>

@@ -68,7 +68,6 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 	</head>
 	<body>
@@ -76,5 +75,13 @@
 			<div id="admin_info" title="新增管理员" style="display:none;">
 			</div>
 		</form>
+		<div class="success" id="response_success_div" title="提交成功" style="display:none;">
+			编辑管理员成功!
+			
+		</div>
+		
+		<div class="has-error" id="response_fail_div" title="提交失败" style="display:none;">
+			编辑管理员失败,请刷新页面重新编辑!
+		</div>
 	</body>
 </html>
