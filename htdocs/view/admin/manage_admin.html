@@ -10,7 +10,7 @@
 		<script>
 			function add_admin() {
 				$('#admin_info').dialog({
-					 height: 500,
+					 height: 450,
 					 width: 550,
 					 modal: true,
 				});
@@ -19,13 +19,13 @@
 				});
 			}
 			
-			function edit_admin() {
+			function edit_admin(admin_id) {
 				$('#admin_info').dialog({
-					 height: 500,
+					 height: 450,
 					 width: 550,
 					 modal: true,
 				});
-				$.get('manage_admin.php?action=edit_admin&admin_id', function(result){
+				$.get('manage_admin.php?action=edit_admin&admin_id=' + admin_id, function(result){
 					$('#admin_info').html(result);
 				});
 			}
@@ -54,7 +54,7 @@
 					<td><?php echo $v['name'];?></td>
 					<td><?php echo $v['delete_name'];?></td>
 					<td><?php echo $v['module_name'];?></td>
-					<td><input class="btn btn-info" type="button" value="编辑"></td>
+					<td><input class="btn btn-info" type="button" value="编辑" onClick="edit_admin('<?php echo $v['id'];?>');"></td>
 				</tr>
 			<?php }?>
 			</tbody>
@@ -72,8 +72,9 @@
 		<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 	</head>
 	<body>
-		<div id="admin_info" title="新增管理员" style="display:none;">
-			
-		</div>
+		<form id="commit_edit_admin" action="manage_admin.php?action=commit_edit_admin" method="post">
+			<div id="admin_info" title="新增管理员" style="display:none;">
+			</div>
+		</form>
 	</body>
 </html>

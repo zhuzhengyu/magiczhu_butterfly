@@ -38,7 +38,19 @@ function commit_add_admin() {
 
 function edit_admin() {
 	$admin_id = isset($_GET['admin_id']) ? $_GET['admin_id'] : '';
-
+	$moduleModel = new moduleModel();
+	$parent_module_list  = $moduleModel->get_parent_module_list();
+	$adminModel = new adminModel();
+	if ($admin_id) {
+		$admin_detail = $adminModel->get_admin_detail_by_id($admin_id);
+		$power_arr = explode(',', $admin_detail['power']);
+		foreach ($parent_module_list as $k => $v) {
+			foreach ($power_arr as $kk => $vv) {
+				if ($k == $vv) $parent_module_list[$k]['is_check'] = true;
+			}
+		}
+	}
+// 	pr($parent_module_list);
 	include (ADMIN_VIEW_PATH . '/edit_admin.html');
 }
 

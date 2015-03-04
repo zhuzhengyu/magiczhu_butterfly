@@ -1,40 +1,77 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="username">账号</label>
 		<div class="col-sm-9">
-			<input type="text" class="form-control" id="username" name="username" placeholder="管理员账号">
+			<input type="text" class="form-control" id="username" name="username" placeholder="管理员账号" value="<?php echo $admin_detail['username'];?>" <?php if ($admin_detail['username']) {?>disabled<?php }?>>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="password">密码</label>
 		<div class="col-sm-9">
-			<input type="password" class="form-control" id="password" name="password" placeholder="管理员密码">
+			<input type="password" class="form-control" id="password" name="password" placeholder="管理员密码" value="<?php echo $admin_detail['password'];?>">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="repassword">重复密码</label>
 		<div class="col-sm-9">
-			<input type="password" class="form-control" id="repassword" name="repassword" placeholder="重复管理员密码">
+			<input type="password" class="form-control" id="repassword" name="repassword" placeholder="重复管理员密码" value="<?php echo $admin_detail['password'];?>">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="name">管理员姓名</label>
 		<div class="col-sm-9">
-			<input type="text" class="form-control" id="name" name="name" placeholder="管理员姓名">
+			<input type="text" class="form-control" id="name" name="name" placeholder="管理员姓名" value="<?php echo $admin_detail['name'];?>">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="power">模块权限</label>
 		<div class="col-sm-9">
+			<?php foreach($parent_module_list as $k => $v) {?>
 			<div class="checkbox">
 				<label>
-					<input type="checkbox" value=""/>模块1
+					<input class="module_id_class" name="module_id" type="checkbox" value="<?php echo $v['id'];?>" <?php if ($v['is_check'] == true) {?>checked=true<?php } ?>/><?php echo $v['module_name'];?>
 				</label>
 			</div>
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" value=""/>模块1
-				</label>
-			</div>
+			<?php }?>
 		</div>
 	</div>
-	<input type="button" value="提交"/>
+	<input type="submit" class="btn btn-danger center-block" value="提交"  onClick="commit_edit_admin();"/>
+<script>
+	function commit_edit_admin() {
+		var username = $('#username').val();
+		var password = $('#password').val();
+		var repassword = $('#repassword').val();
+		var name = $('#name').val();
+		var module_id = getEachCheckValue('module_id_class');
+		if (password != repassword) {
+			alert('两次输入的密码不一致,请重新输入');
+		}
+    
+		$.get('manage_admin.php?action=commit_edit_admin',{username:username, password:password, name:name, module_id:module_id}, function(result){
+			
+		});
+	}
+
+	function getEachCheckValue(class_name) {
+		var count = 0;
+		var result = new Array();
+		$.each($('.' + class_name), function(i, n) {
+			alert($(n).attr('checked'));
+			if ($(n).attr('checked') == true) {
+				result[count] = $(n).val();
+			}
+			++count;
+		});
+		return result;
+	}
+	
+	//获取指定CLASS的所有值
+	function getEachValue(class_name) {
+		var count = 0;
+		var result = new Array();
+		$.each($('.' + class_name), function(i, n) {
+			result[count] = $(n).val();
+			++count;
+		});
+		return result;
+	}
+</script>

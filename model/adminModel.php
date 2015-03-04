@@ -1,7 +1,7 @@
 <?php
 class adminModel extends model{
 	public $table = 'admin';
-	
+
 	/**
 	 * @method 校验管理员
 	 * @param array $param
@@ -20,7 +20,7 @@ class adminModel extends model{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @method 获取账户指定的权限
 	 * @param string $username
@@ -33,7 +33,7 @@ class adminModel extends model{
 		$result = explode(',', $row['power']);
 		return $result;
 	}
-	
+
 	/**
 	 * @method 获取所有的管理员详细信息
 	 */
@@ -44,5 +44,17 @@ class adminModel extends model{
 			$data[] = $row;
 		}
 		return $data;
+	}
+
+	/**
+	 * @method 根据管理员ID号获取管理员详情
+	 * @param int $id
+	 * @return array
+	 */
+	public function get_admin_detail_by_id($id) {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND id = "' . intval($id) . '"';
+		$result = $this->con->query($sql);
+		$row = $result->fetch_assoc();
+		return $row;
 	}
 }
