@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2015-03-03 00:11:35
+Date: 2015-03-05 00:50:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,15 +27,17 @@ CREATE TABLE `admin` (
   `is_delete` enum('0','1') DEFAULT '0' COMMENT '是否删除标志,0:未删除;1:已删除',
   `create_date` datetime DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_unique` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'magic', '朱征宇', '123', '1,2,3,4,5', '0', null, '2015-03-01 00:26:22');
+INSERT INTO `admin` VALUES ('1', 'magic', '朱征宇', '123', '1,2,3,4,5,6', '0', null, '2015-03-04 23:54:24');
 INSERT INTO `admin` VALUES ('2', 'tanyin', '谈寅', '123', '2,3', '0', null, null);
 INSERT INTO `admin` VALUES ('3', 'yezong', '叶总', '111', '4,2', '0', null, '2015-03-02 23:31:28');
+INSERT INTO `admin` VALUES ('4', 'test', 'name', 'aaa', '1,2,5', '0', null, '2015-03-05 00:28:29');
 
 -- ----------------------------
 -- Table structure for `module`
@@ -63,4 +65,3 @@ INSERT INTO `module` VALUES ('5', '资讯管理', 'manage_news.php', '0', '0', n
 INSERT INTO `module` VALUES ('6', '模块管理', 'manage_module.php', '0', '0', null, '2015-02-28 20:26:04');
 INSERT INTO `module` VALUES ('7', '首页管理', null, '1', '0', null, '2015-02-28 20:26:05');
 INSERT INTO `module` VALUES ('8', '管理员管理', 'manage_admin.php', '2', '0', null, '2015-03-01 22:11:10');
-
