@@ -28,19 +28,12 @@ function admin_list() {
 	include (ADMIN_VIEW_PATH . '/manage_admin.html');
 }
 
-function add_admin() {
-
-}
-
-function commit_add_admin() {
-
-}
-
 function edit_admin() {
 	$admin_id = isset($_GET['admin_id']) ? $_GET['admin_id'] : '';
 	$moduleModel = new moduleModel();
 	$parent_module_list  = $moduleModel->get_parent_module_list();
 	$adminModel = new adminModel();
+	$admin_detail = array();
 	if ($admin_id) {
 		$admin_detail = $adminModel->get_admin_detail_by_id($admin_id);
 		$power_arr = explode(',', $admin_detail['power']);
@@ -54,6 +47,17 @@ function edit_admin() {
 	include (ADMIN_VIEW_PATH . '/edit_admin.html');
 }
 
+//ajax异步调用
 function commit_edit_admin() {
+	$param['id'] = $_POST['admin_id'];
+	$param['username'] = $_POST['username'];
+	$param['password'] = $_POST['password'];
+	$param['name'] = $_POST['name'];
+	$module_id = $_POST['module_id'];
+	$param['power'] = implode(',', $module_id);
 
+	$adminModel = new adminModel();
+	$result = $param['id'] ? $adminModel->update_admin($param) : $adminModel->add_admin($param);
+
+	$result == true ? exit('success') : exit('false');
 }
