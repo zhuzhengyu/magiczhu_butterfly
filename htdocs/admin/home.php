@@ -18,7 +18,7 @@ $power = $adminModel->get_power($username);
 $moduleModel = new moduleModel();
 $module_list = $moduleModel->get_module_list_detail($power);
 $module_detail = current($module_list);
-$query_module_id = $module_id ? $module_id : $first_module_detail['id'];
+$query_module_id = $module_id ? $module_id : $module_detail['id'];
 $sub_module_list = $moduleModel->get_sub_module($query_module_id);
 include (ADMIN_VIEW_PATH . '/home.html');
 

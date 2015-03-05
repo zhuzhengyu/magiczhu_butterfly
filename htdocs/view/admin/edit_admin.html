@@ -1,26 +1,26 @@
-	<input type="hidden" id="admin_id" name="admin_id" value="<?php echo $admin_detail['id'];?>"/>
+	<input type="hidden" id="admin_id" name="admin_id" value="<?php if (isset($admin_detail['id'])) {echo $admin_detail['id'];}?>"/>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="username">账号</label>
 		<div class="col-sm-9">
-			<input type="text" class="form-control" id="username" name="username" placeholder="管理员账号" value="<?php echo $admin_detail['username'];?>" <?php if ($admin_detail['username']) {?>disabled<?php }?>>
+			<input type="text" class="form-control" id="username" name="username" placeholder="管理员账号" value="<?php if(isset($admin_detail['username'])) {echo $admin_detail['username'];}?>" <?php if (isset($admin_detail['username']) && $admin_detail['username']) {?>disabled<?php }?>>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="password">密码</label>
 		<div class="col-sm-9">
-			<input type="password" class="form-control" id="password" name="password" placeholder="管理员密码" value="<?php echo $admin_detail['password'];?>">
+			<input type="password" class="form-control" id="password" name="password" placeholder="管理员密码" value="<?php if(isset($admin_detail['password'])) {echo $admin_detail['password'];}?>">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="repassword">重复密码</label>
 		<div class="col-sm-9">
-			<input type="password" class="form-control" id="repassword" name="repassword" placeholder="重复管理员密码" value="<?php echo $admin_detail['password'];?>">
+			<input type="password" class="form-control" id="repassword" name="repassword" placeholder="重复管理员密码" value="<?php if(isset($admin_detail['password'])) {echo $admin_detail['password'];}?>">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="name">管理员姓名</label>
 		<div class="col-sm-9">
-			<input type="text" class="form-control" id="name" name="name" placeholder="管理员姓名" value="<?php echo $admin_detail['name'];?>">
+			<input type="text" class="form-control" id="name" name="name" placeholder="管理员姓名" value="<?php if(isset($admin_detail['name'])) {echo $admin_detail['name'];}?>">
 		</div>
 	</div>
 	<div class="form-group">
