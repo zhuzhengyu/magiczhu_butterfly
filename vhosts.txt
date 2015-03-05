@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+     DocumentRoot "D:/work/git/magiczhu_butterfly/htdocs"
+     ServerName butterfly.com
+     <Directory "D:/work/git/magiczhu_butterfly/htdocs">
+           Options Indexes FollowSymLinks Includes
+           AllowOverride All
+	   Order allow,deny
+	   Allow from all
+     </Directory>
+</VirtualHost>
