@@ -57,7 +57,7 @@ class adminModel extends model{
 		$row = $result->fetch_assoc();
 		return $row;
 	}
-	
+
 	/**
 	 * @method 新增管理员
 	 * @param array $param
@@ -87,5 +87,17 @@ class adminModel extends model{
 		$sql = 'UPDATE ' . $this->table . ' SET `username` = "' . $username . '", `name` = "' . $name . '", `password` = "' . $password . '", `power` = "' . $power . '" WHERE id = ' . intval($id);
 		$this->con->query($sql);
 		return $this->con->affected_rows;
+	}
+
+	/**
+	 * @method 根据管理员账号获取管理员详情
+	 * @param string $username
+	 * @return array
+	 */
+	public function get_admin_detail_by_username($username) {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND username = "' . $username . '"';
+		$result = $this->con->query($sql);
+		$row = $result->fetch_assoc();
+		return $row;
 	}
 }

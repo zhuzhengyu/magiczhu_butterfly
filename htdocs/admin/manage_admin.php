@@ -59,5 +59,9 @@ function commit_edit_admin() {
 	$adminModel = new adminModel();
 	$result = $param['id'] ? $adminModel->update_admin($param) : $adminModel->add_admin($param);
 
+	$username = $_SESSION['username'];
+	$admin_detail = $adminModel->get_admin_detail_by_username($username);
+	$admin_name = $admin_detail['name'];
+
 	$result == true ? exit('success') : exit('false');
 }
