@@ -59,9 +59,17 @@ function commit_edit_admin() {
 	$adminModel = new adminModel();
 	$result = $param['id'] ? $adminModel->update_admin($param) : $adminModel->add_admin($param);
 
-	$username = $_SESSION['username'];
-	$admin_detail = $adminModel->get_admin_detail_by_username($username);
-	$admin_name = $admin_detail['name'];
-
-	$result == true ? exit('success') : exit('false');
+	if ($result == true) {
+		$username = $_SESSION['username'];
+		$admin_detail = $adminModel->get_admin_detail_by_username($username);
+		$admin_name = $admin_detail['name'];
+		$logModel = new logModel();
+		$log['tag'] = 'manage_admin';
+		$log['content'] = $admin_name . '编辑管理员信息|' . json_encode($param);
+		$log['level'] = 'info';
+		$logModel->log($log);
+		exit('success');
+	} else {
+		exit('fail');
+	}
 }

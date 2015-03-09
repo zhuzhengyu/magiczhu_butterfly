@@ -68,7 +68,7 @@ class adminModel extends model{
 		$name = $param['name'];
 		$password = $param['password'];
 		$power = $param['power'];
-		$sql = 'INSERT INTO ' . $this->table . ' (`username`, `name`, `password`, `power`) VALUES ("' . $username . '", "' . name . '", "' . $password . '", "' . $power . '")';
+		$sql = 'INSERT INTO ' . $this->table . ' (`username`, `name`, `password`, `power`) VALUES ("' . $username . '", "' . $name . '", "' . $password . '", "' . $power . '")';
 		$this->con->query($sql);
 		return $this->con->affected_rows;
 	}
