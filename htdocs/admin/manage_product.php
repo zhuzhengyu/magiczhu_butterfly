@@ -16,33 +16,19 @@ function upload_img_zip() {
 //开始上传图片压缩包
 function commit_upload_img_zip() {
 	if (($_FILES["file"]["type"] == "application/x-zip-compressed") && ($_FILES["file"]["size"] < 2000000)) {
-		if ($_FILES["file"]["error"] > 0)
-		{
+		if ($_FILES["file"]["error"] > 0) {
 			exit('上传出现错误');
 			$_FILES["file"]["error"];//获取错误码
-		}
-		else
-		{
-// 			echo "Upload: " . $_FILES["file"]["name"] . "<br />";
-// 			echo "Type: " . $_FILES["file"]["type"] . "<br />";
-// 			echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
-// 			echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
-			$new_file_name = $_FILES["file"]["name"] . '_' . date('YmdHis');
-// 			if (file_exists("upload/" . $_FILES["file"]["name"]))
-// 			{
-// 				echo $_FILES["file"]["name"] . " already exists. ";
-// 			}
-// 			else
-// 			{
-				move_uploaded_file($_FILES["file"]["tmp_name"],
-				"upload/" . $_FILES["file"]["name"]);
-				echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
-// 			}
+		} else {
+			$file_name_arr = explode('.', $_FILES["file"]["name"]);
+			$new_file_name = $file_name_arr[0] . '_' . date('YmdHis') . '.' . $file_name_arr[1];
+			move_uploaded_file($_FILES["file"]["tmp_name"],
+			UPLOAD_PATH . '/product/' . $new_file_name);
 		}
 	}
 	else
 	{
-		echo "Invalid file";
+		echo "非.zip压缩包文件";
 	}
 }
 
@@ -63,7 +49,21 @@ function batch_upload_product() {
 
 //提交批量上传的产品
 function commit_batch_upload_product() {
-
+	if (($_FILES["file"]["type"] == "application/vnd.ms-excel") && ($_FILES["file"]["size"] < 2000000)) {
+		if ($_FILES["file"]["error"] > 0) {
+			exit('上传出现错误');
+			$_FILES["file"]["error"];//获取错误码
+		} else {
+			$file_name_arr = explode('.', $_FILES["file"]["name"]);
+			$new_file_name = $file_name_arr[0] . '_' . date('YmdHis') . '.' . $file_name_arr[1];
+			move_uploaded_file($_FILES["file"]["tmp_name"],
+			UPLOAD_PATH . '/product/' . $new_file_name);
+		}
+	}
+	else
+	{
+		echo "非法文件";
+	}
 }
 
 //产品列表
