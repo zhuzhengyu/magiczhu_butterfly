@@ -15,7 +15,6 @@ function upload_img_zip() {
 
 //开始上传图片压缩包
 function commit_upload_img_zip() {
-// 	pr($_FILES["file"]);exit;
 	if (($_FILES["file"]["type"] == "application/x-zip-compressed") && ($_FILES["file"]["size"] < 2000000)) {
 		if ($_FILES["file"]["error"] > 0)
 		{
@@ -59,7 +58,7 @@ function commit_upload_product() {
 
 //批量上传产品
 function batch_upload_product() {
-
+	include (ADMIN_VIEW_PATH . '/batch_upload_product.html');
 }
 
 //提交批量上传的产品
@@ -70,5 +69,10 @@ function commit_batch_upload_product() {
 //产品列表
 function product_list() {
 	$productModel = new productModel();
+	$param = array();
+	$product_list = $productModel->get_product_list($param);
+	foreach ($product_list as $k => $v) {
+		$product_list[$k]['publish_name'] = $v['is_publish'] == 1 ? '已发布' : '未发布';
+	}
 	include (ADMIN_VIEW_PATH . '/product_list.html');
 }

@@ -9,6 +9,11 @@ class productModel extends model{
 	 */
 	public function get_product_list($param) {
 		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0"';
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
 	}
 
 	/**
