@@ -56,3 +56,19 @@ function upload_product() {
 function commit_upload_product() {
 
 }
+
+//批量上传产品
+function batch_upload_product() {
+
+}
+
+//提交批量上传的产品
+function commit_batch_upload_product() {
+
+}
+
+//产品列表
+function product_list() {
+	$productModel = new productModel();
+	include (ADMIN_VIEW_PATH . '/product_list.html');
+}

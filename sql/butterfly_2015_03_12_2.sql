@@ -2,20 +2,21 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50524
+Source Server Version : 50612
 Source Host           : localhost:3306
 Source Database       : butterfly
 
 Target Server Type    : MYSQL
-Target Server Version : 50524
+Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2015-03-12 10:15:19
+Date: 2015-03-12 17:57:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
--- Table structure for `admin`
+-- Table structure for admin
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
@@ -46,7 +47,7 @@ INSERT INTO `admin` VALUES ('9', 'test6', '测试6', 'test6', '3,4', '0', null, 
 INSERT INTO `admin` VALUES ('10', 'test7', '测试7', 'test7', '4,5', '0', null, null);
 
 -- ----------------------------
--- Table structure for `log`
+-- Table structure for log
 -- ----------------------------
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
@@ -73,7 +74,7 @@ INSERT INTO `log` VALUES ('8', 'manage_admin', 'info', '朱征宇编辑管理员
 INSERT INTO `log` VALUES ('9', 'manage_admin', 'info', '朱征宇编辑管理员信息|{\"id\":\"9\",\"username\":\"test6\",\"password\":\"test6\",\"name\":\"u6d4bu8bd56\",\"power\":\"3,4\"}', '2015-03-09 16:15:16', null);
 
 -- ----------------------------
--- Table structure for `module`
+-- Table structure for module
 -- ----------------------------
 DROP TABLE IF EXISTS `module`;
 CREATE TABLE `module` (
@@ -85,7 +86,7 @@ CREATE TABLE `module` (
   `create_date` datetime DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of module
@@ -100,3 +101,25 @@ INSERT INTO `module` VALUES ('7', '首页管理', null, '1', '0', null, '2015-02
 INSERT INTO `module` VALUES ('8', '管理员管理', 'manage_admin.php', '2', '0', null, '2015-03-01 22:11:10');
 INSERT INTO `module` VALUES ('9', '管理员管理日志', 'show_log.php?action=manage_admin', '3', '0', null, '2015-03-09 14:46:43');
 INSERT INTO `module` VALUES ('10', '上传图片压缩文件', 'manage_product.php?action=upload_img_zip', '4', '0', null, '2015-03-10 14:39:16');
+INSERT INTO `module` VALUES ('11', '批量上传产品', 'manage_product.php?action=batch_upload_product', '4', '0', null, '2015-03-12 14:43:55');
+INSERT INTO `module` VALUES ('12', '产品列表', 'manage_product.php?action=product_list', '4', '0', null, '2015-03-12 15:52:15');
+
+-- ----------------------------
+-- Table structure for product
+-- ----------------------------
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL COMMENT '产品名',
+  `price` float(20,0) DEFAULT NULL COMMENT '产品价格',
+  `category_name` varchar(255) DEFAULT NULL COMMENT '产品所属大类名',
+  `is_publish` enum('0','1') DEFAULT '0' COMMENT '是否已发布产品标志,0:未发布;1:已发布',
+  `is_delete` enum('0','1') DEFAULT '0' COMMENT '是否已删除标志,0:未删除;1:已删除',
+  `create_date` datetime DEFAULT NULL COMMENT '数据创建日期',
+  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of product
+-- ----------------------------
