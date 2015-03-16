@@ -114,4 +114,14 @@ class productModel extends model{
 		$row = $result->fetch_assoc();
 		return $row;
 	}
+
+	/**
+	 * @method 根据产品ID获取ID详情
+	 */
+	public function get_product_detail_by_id() {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0"';
+		$result = $this->con->query($sql);
+		$row = $result->fetch_assoc();
+		return $row;
+	}
 }

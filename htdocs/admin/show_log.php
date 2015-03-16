@@ -14,3 +14,10 @@ function manage_admin() {
 	$log_list = $logModel->get_log_by_tag('manage_admin');
 	include (ADMIN_VIEW_PATH . '/show_log.html');
 }
+
+//产品上传日志
+function manage_product() {
+	$logModel = new logModel();
+	$log_list = $logModel->get_log_by_tag('manage_product');
+	include (ADMIN_VIEW_PATH . '/show_log.html');
+}

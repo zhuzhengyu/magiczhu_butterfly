@@ -44,6 +44,15 @@ function commit_upload_product() {
 
 //批量上传产品
 function batch_upload_product() {
+	$excelModel = new excelModel();
+	$excel_list = $excelModel->get_excel_list();
+	foreach ($excel_list as $k => $v) {
+		$file = explode('_', $v['file']);
+		$file_extension = explode('.', $v['file']);
+		$excel_list[$k]['origin_file']		= $file[0] . '.' . $file_extension[1];
+		$excel_list[$k]['is_in_db']			= $v['state'] == '2' ? '是' : '否';//是否已导入至数据库
+		$excel_list[$k]['download_url']	= UPLOAD_URL . '/product/' . $v['file'];
+	}
 	include (ADMIN_VIEW_PATH . '/batch_upload_product.html');
 }
 
@@ -56,8 +65,26 @@ function commit_batch_upload_product() {
 		} else {
 			$file_name_arr = explode('.', $_FILES["file"]["name"]);
 			$new_file_name = $file_name_arr[0] . '_' . date('YmdHis') . '.' . $file_name_arr[1];
-			move_uploaded_file($_FILES["file"]["tmp_name"],
-			UPLOAD_PATH . '/product/' . $new_file_name);
+			$file_position = UPLOAD_PATH . '/product/' . $new_file_name;
+			move_uploaded_file($_FILES["file"]["tmp_name"], $file_position);
+
+			//记录产品
+			$excelModel = new excelModel();
+			$excelModel->insert_excel($new_file_name);
+
+			//记录日志部分
+			$username = $_SESSION['username'];
+			$adminModel = new adminModel();
+			$admin_detail = $adminModel->get_admin_detail_by_username($username);
+			$admin_name = $admin_detail['name'];
+			$logModel = new logModel();
+			$log['tag'] = 'manage_product';
+			$log['content'] = $admin_name . '上传了产品列表文件:' . $file_position;
+			$log['level'] = 'info';
+// 			pr($log);
+			$logModel->log($log);
+
+			batch_upload_product();
 		}
 	}
 	else
@@ -65,6 +92,7 @@ function commit_batch_upload_product() {
 		echo "非法文件";
 	}
 }
+
 
 //产品列表
 function product_list() {
@@ -75,4 +103,12 @@ function product_list() {
 		$product_list[$k]['publish_name'] = $v['is_publish'] == 1 ? '已发布' : '未发布';
 	}
 	include (ADMIN_VIEW_PATH . '/product_list.html');
+}
+
+//编辑产品
+function edit_product() {
+	$product_id = $_GET['product_id'];
+	$productModel = new productModel();
+	$product_detail = $productModel->get_product_detail_by_id($product_id);
+	include (ADMIN_VIEW_PATH . '/edit_product.html');
 }
