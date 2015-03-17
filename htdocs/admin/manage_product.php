@@ -93,6 +93,34 @@ function commit_batch_upload_product() {
 	}
 }
 
+//将指定excel导入至数据库
+function load_excel_to_db() {
+	$excel_id = $_GET['excel_id'];
+	$excelModel = new excelModel();
+	$file = $excelModel->get_file_by_id($excel_id);
+	if ($file) {
+		$real_file = UPLOAD_PATH . '/product/' . $file;
+
+		include LIB_PATH . '/PHPExcel/Classes/PHPExcel/IOFactory.php';
+	// 	include LIB_PATH . '/PHPExcel/Classes/PHPExcel.php';
+		$objPHPExcel = PHPExcel_IOFactory::load($real_file);
+		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		$keys = $sheetData[1];
+		unset($sheetData[1]);
+		foreach ($sheetData as $k => $v) {
+			$param[$k]['no']			= $v['A'];
+			$param[$k]['name']		= $v['B'];
+			$param[$k]['price']		= $v['C'];
+			$param[$k]['category']	= $v['D'];
+		}
+
+		//数据批量导入至数据库
+		$productModel = new productModel();
+		$productModel->batch_insert_db($param);
+		$excelModel->chage_state($excel_id);
+	}
+	batch_upload_product();
+}
 
 //产品列表
 function product_list() {
@@ -108,7 +136,33 @@ function product_list() {
 //编辑产品
 function edit_product() {
 	$product_id = $_GET['product_id'];
-	$productModel = new productModel();
-	$product_detail = $productModel->get_product_detail_by_id($product_id);
+	if ($product_id) {
+		$productModel = new productModel();
+		$product_detail = $productModel->get_product_detail_by_id($product_id);
+	}
 	include (ADMIN_VIEW_PATH . '/edit_product.html');
+}
+
+//提交编辑产品
+function commit_edit_product() {
+	$product['name']	= $_GET['product_no'];
+	$product['id']			= $_GET['product_id'];
+	$product['price']	= $_GET['price'];
+	$product['category']	= $_GET['category'];
+	$productModel = new productModel();
+	$result = $product['id'] ? $productModel->update_product($product) : $productModel->insert_product($product);
+
+	if ($result == true) {
+		$username = $_SESSION['username'];
+		$admin_detail = $adminModel->get_admin_detail_by_username($username);
+		$admin_name = $admin_detail['name'];
+		$logModel = new logModel();
+		$log['tag'] = 'manage_product';
+		$log['content'] = $admin_name . '编辑产品信息|' . json_encode($product);
+		$log['level'] = 'info';
+		$logModel->log($log);
+		exit('success');
+	} else {
+		exit('fail');
+	}
 }
