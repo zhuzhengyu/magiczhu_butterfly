@@ -100,4 +100,16 @@ class adminModel extends model{
 		$row = $result->fetch_assoc();
 		return $row;
 	}
+
+	/**
+	 * @method 修改账号密码
+	 */
+	public function modify_password($param) {
+		$old_password = $param['old_password'];
+		$new_password = $param['new_password'];
+		$username = $param['username'];
+		$sql = 'UPDATE ' . $this->table . ' SET `password` = "' . $new_password . '" WHERE `username` = "' . $username . '" AND `password` = "' . $old_password . '"';
+		$result = $this->con->query($sql);
+		return $this->con->affected_rows;
+	}
 }

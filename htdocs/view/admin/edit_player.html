@@ -1,0 +1,121 @@
+	<input type="hidden" id="player_id" name="player_id" value="<?php if (isset($player_detail['id'])) {echo $player_detail['id'];}?>"/>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="name">球员姓名</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="name" name="name" placeholder="球员姓名" value="<?php if(isset($player_detail['name'])) {echo $player_detail['name'];}?>" >
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="nationality">国籍</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="国籍" value="<?php if(isset($player_detail['nationality'])) {echo $player_detail['nationality'];}?>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="birth">生日</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="birth" name="birth" placeholder="生日(格式:2014年10月10日)" value="<?php if(isset($player_detail['birth'])) {echo $player_detail['birth'];}?>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="zhan_xing">战型</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="zhan_xing" name="zhan_xing" placeholder="战型" value="<?php if(isset($player_detail['zhan_xing'])) {echo $player_detail['zhan_xing'];}?>">
+		</div>
+	</div>
+	<h2 class="sub-header">主要战绩</h2>
+	<div class="col-sm-12">
+		<input type="button" value="增加一条战绩" class="btn btn-warning pull-left" onClick="add_achievement();"/>
+	</div>
+	<div class="form-group" id="achievement_content">
+	<?php $k = 0;//初始化$k为0?>
+	<?php	if (isset($player_detail['achievement'])) {?>
+	<?php		foreach ($player_detail['achievement'] as $k => $v) {?>
+		<div class="achievement_content_child" id="achievement_<?php echo $k;?>_content">
+			<div class="col-sm-3">
+				<input type="text" class="form-control achievement_year" placeholder="年份" value="<?php echo $player_detail['achievement_year'][$k];?>"/>
+			</div>
+			<div class="col-sm-7">
+				<input type="text" class="col-sm-6 form-control achievement"  placeholder="主要战绩" value="<?php echo $v;?>">
+			</div>
+			<div class="col-sm-2">
+				<input type="button" class="btn btn-info" value="删除" id="achievement_1" onClick="delete_achievement(this.id);"/>
+			</div>
+		</div>
+	<?php		}?>
+	<?php	} else {?>
+		<div class="achievement_content_child" id="achievement_0_content">
+			<div class="col-sm-3">
+				<input type="text" class="form-control achievement_year" placeholder="年份"/>
+			</div>
+			<div class="col-sm-7">
+				<input type="text" class="col-sm-6 form-control achievement"  placeholder="主要战绩" value="">
+			</div>
+			<div class="col-sm-2">
+				<input type="button" class="btn btn-info" value="删除" id="achievement_0" onClick="delete_achievement(this.id);"/>
+			</div>
+		</div>
+	<?php	}?>
+	</div>
+	<input type="hidden" value="<?php echo $k;?>" id="count"/>
+	<input type="submit" class="btn btn-danger center-block" value="提交" onClick="commit_edit_player();"/>
+<script>
+	//增加战绩
+	function add_achievement() {
+		var count = $("#count").val();
+		count++;
+		var content = '<div class="achievement_content_child" id="achievement_' + count + '_content">' +
+								'			<div class="col-sm-3">' + 
+								'		<input type="text" class="form-control achievement_year" placeholder="年份"/>' +
+								'	</div>' + 
+								'	<div class="col-sm-7">' +
+								'		<input type="text" class="col-sm-6 form-control achievement"  placeholder="主要战绩" value="">' + 
+								'	</div>' +
+								'	<div class="col-sm-2">' +
+								'		<input type="button" class="btn btn-info" value="删除" id="achievement_' + count + '" onClick="delete_achievement(this.id);"/>' +
+								'	</div>' +
+								'</div>';
+		$("#count").val(count);
+		$("#achievement_content").append(content);
+	}
+	
+	//删除战绩
+	function delete_achievement(id) {
+		var delete_id = id + '_content';
+		$("#" + delete_id).remove();
+	}
+
+	//提交编辑球员信息
+	function commit_edit_player() {
+		var player_id = $('#player_id').val();
+		var name = $('#name').val();
+		var nationality = $('#nationality').val();
+		var birth = $('#birth').val();
+		var zhan_xing = $('#zhan_xing').val();
+		var achievement = $('#achievement').val();
+		var achievement = [];
+		var achievement_year = [];
+		achievement = getEachValue('achievement');
+		achievement_year = getEachValue('achievement_year');
+		
+		$.post('manage_player.php?action=commit_edit_player',{player_id:player_id, name:name, nationality:nationality, birth:birth, zhan_xing:zhan_xing, achievement:achievement, achievement_year:achievement_year}, function(response){
+			$('#player_info').dialog("close");
+			if (response == 'success') {
+				$("#response_success_div").dialog({modal: true,});
+			} else {
+				$("#response_fail_div").dialog({modal: true,});
+			}
+		});
+	}
+	
+	//获取指定CLASS的所有值
+	function getEachValue(class_name) {
+		var count = 0;
+		var result = new Array();
+		$.each($('.' + class_name), function(i, n) {
+			result[count] = $(n).val();
+			++count;
+		});
+		return result;
+	}
+</script>

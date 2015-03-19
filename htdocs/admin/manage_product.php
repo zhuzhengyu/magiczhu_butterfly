@@ -44,8 +44,10 @@ function commit_upload_product() {
 
 //批量上传产品
 function batch_upload_product() {
+	$param['page_no'] = isset($_GET['page_no']) ? $_GET['page_no'] : '1';
+	$param['per_page'] = isset($_GET['per_page']) ? $_GET['per_page'] : '10';
 	$excelModel = new excelModel();
-	$excel_list = $excelModel->get_excel_list();
+	$excel_list = $excelModel->get_excel_list($param, $total_page);
 	foreach ($excel_list as $k => $v) {
 		$file = explode('_', $v['file']);
 		$file_extension = explode('.', $v['file']);

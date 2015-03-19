@@ -24,8 +24,7 @@
 			<thead>
 				<tr>
 					<th>编号</th>
-					<th>文件名</th>
-					<th>是否已入库</th>
+					<th>文件名(点击下载原文件)</th>
 					<th>上传日期</th>
 					<th>操作</th>
 				</tr>
@@ -35,12 +34,20 @@
 				<tr>
 					<td><?php echo $v['id'];?></td>
 					<td><a href="<?php echo $v['download_url'];?>" target="_blank"><?php echo $v['origin_file'];?></a></td>
-					<td><?php echo $v['is_in_db'];?></td>
 					<td><?php echo $v['create_date'];?></td>
-					<td><input class="btn btn-info" type="button" value="导入至数据库" onClick="load_excel_to_db('<?php echo $v['id'];?>');"></td>
+					<td><?php if ($v['state'] == 1) {?><input class="btn btn-danger" type="button" value="导入至数据库" onClick="load_excel_to_db('<?php echo $v['id'];?>');"><?php }?></td>
 				</tr>
 			<?php }?>
 			</tbody>
 		</table>
+		<ul class="pagination pull-right">
+			<li><a href="#">&laquo;</a></li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+			<li><a href="#">&raquo;</a></li>
+		</ul>
 	</body>
 </html>

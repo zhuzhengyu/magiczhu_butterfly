@@ -14,12 +14,18 @@ class excelModel extends model{
 	/**
 	 * @method 获取产品EXCEL文件列表
 	 */
-	public function get_excel_list() {
-		$sql = 'SELECT * FROM ' . $this->table . ' ORDER BY id DESC';
+	public function get_excel_list($param, &$returnParam) {
+		$offset = ($param['page_no'] - 1) * $param['per_page'];
+		$rows = intval($param['per_page']);
+		$sql = 'SELECT * FROM ' . $this->table . ' ORDER BY id DESC LIMIT ' . $offset . ',' . $rows;
 		$result = $this->con->query($sql);
 		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
+		$count_sql = 'SELECT COUNT(*) AS ct FROM ' . $this->table;
+		$count_result = $this->con->query($count_sql);
+		$count_row = $count_result->fetch_assoc();
+		$returnParam['total_rows'] = $count_row['ct'];
 		return $data;
 	}
 
