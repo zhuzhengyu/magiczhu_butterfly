@@ -10,7 +10,7 @@ class moduleModel extends model{
 		}
 		return $data;
 	}
-	
+
 	/**
 	 * @method 获取父类模块列表
 	 * @param void
@@ -24,20 +24,20 @@ class moduleModel extends model{
 		}
 		return $data;
 	}
-	
+
 	/**
 	 * @method 获取指定模块信息
 	 */
 	public function get_module_list_detail($module_arr) {
 		$module_id_str = implode(',', $module_arr);
-		$sql = 'SELECT id, module_name, url FROM ' . $this->table . ' WHERE id IN (' . $module_id_str . ') AND parent_module_id = "0" ORDER BY id ASC;';
+		$sql = 'SELECT id, module_name, url FROM ' . $this->table . ' WHERE id IN (' . $module_id_str . ') AND parent_module_id = "0" AND is_delete = "0" ORDER BY id ASC;';
 		$result = $this->con->query($sql);
 		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 		return $data;
 	}
-	
+
 	/**
 	 * @method 获取子模块列表
 	 * @param int $module_id

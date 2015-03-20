@@ -45,6 +45,7 @@ function commit_edit_player() {
 	$achievement_year = $_POST['achievement_year'];
 
 	foreach($achievement as $k => $v) {
+		if (!($achievement_year[$k]) || !($v)) continue;
 		$arr[$k] = $achievement_year[$k] . ':' . $v;
 	}
 	$param['achievement'] = implode('|', $arr);

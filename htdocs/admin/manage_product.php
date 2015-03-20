@@ -147,15 +147,17 @@ function edit_product() {
 
 //提交编辑产品
 function commit_edit_product() {
-	$product['name']	= $_GET['product_no'];
-	$product['id']			= $_GET['product_id'];
-	$product['price']	= $_GET['price'];
-	$product['category']	= $_GET['category'];
+	$product['no']			= $_POST['no'];
+	$product['id']				= $_POST['product_id'];
+	$product['name']		= $_POST['name'];
+	$product['price']		= $_POST['price'];
+	$product['category']	= $_POST['category'];
 	$productModel = new productModel();
-	$result = $product['id'] ? $productModel->update_product($product) : $productModel->insert_product($product);
+	$result = $product['id'] ? $productModel->update_product($product) : $productModel->add_product($product);
 
 	if ($result == true) {
 		$username = $_SESSION['username'];
+		$adminModel = new adminModel();
 		$admin_detail = $adminModel->get_admin_detail_by_username($username);
 		$admin_name = $admin_detail['name'];
 		$logModel = new logModel();
