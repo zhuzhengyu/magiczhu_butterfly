@@ -1,6 +1,6 @@
 <?php
 //产品管理
-include ('D:\work\git\magiczhu_butterfly\config\config.php');//基本配置
+include ('../../config/config.php');//基本配置
 include (BASE_PATH . '/common/admin/common.php');//后台常用方法
 
 checkAdminLogin();//检查管理员登录状态
