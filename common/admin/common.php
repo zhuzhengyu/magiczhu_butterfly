@@ -20,6 +20,7 @@ function __autoload($class_name) {
 	$class_name_array[] = 'moduleModel';
 	$class_name_array[] = 'productModel';
 	$class_name_array[] = 'playerModel';
+	$class_name_array[] = 'newsModel';
 // 	$class_name_array[] = '';
 	if (in_array($class_name, $class_name_array)) {
 		include (MODEL_PATH . '/' . $class_name . '.php');
