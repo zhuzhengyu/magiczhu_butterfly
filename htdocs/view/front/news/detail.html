@@ -1,0 +1,39 @@
+<?php include(BASE_PATH . '/htdocs/header.php');?>
+    <div class="n_banner"></div>
+
+    <div class="container">
+        <div class="side-nav">
+            <p>新闻中心</p>
+            <ul>
+                <li><a class="on i-nav" href="javascript:;">公司新闻</a></li>
+                <li><a class="i-nav" href="javascript:;">产品广告</a></li>
+                <li class="last_list"><a class="i-nav" href="javascript:;">产品知识介绍</a></li>
+                
+            </ul>            
+        </div>
+
+        <div class="main-content">
+           <div class="title clearfix">
+                <p>公司新闻<span>NEWS</span></p>
+                <div class="local">
+                    当前位置：<a href="#">首页</a> > <a href="#">新闻中心</a> > <a class="current" href="#">公司新闻</a>
+                </div>
+           </div>
+           <div class="con-body">
+                <div class="con-title">
+                    <p><?php echo $detail['title'];?></p>
+                    <span>发布时间：<?php echo $detail['create_date'];?></span>
+                </div>
+                <div class="con">
+                  <p style="text-align:center">
+                  <img src="<?php echo CSS_URL;?>/images/n_con.jpg">
+                  <?php echo $detail['content'];?>
+                  </p>
+                </div>
+           </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+    
+<?php include(BASE_PATH . '/htdocs/footer.php');?>
