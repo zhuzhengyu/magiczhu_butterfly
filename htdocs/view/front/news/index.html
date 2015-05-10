@@ -1,3 +1,44 @@
 <?php include(BASE_PATH . '/htdocs/header.php');?>
 
+	<div class="n_banner"></div>
+    <div class="container">
+        <div class="side-nav">
+            <p>新闻中心</p>
+            <ul>
+                <li><a class="on i-nav" href="javascript:;">公司新闻</a></li>
+                <li><a class="i-nav" href="javascript:;">产品广告</a></li>
+                <li class="last_list"><a class="i-nav" href="javascript:;">产品知识介绍</a></li>
+                
+            </ul>            
+        </div>
+
+        <div class="main-content">
+           <div class="title clearfix">
+                <p>公司新闻<span>NEWS</span></p>
+                <div class="local">
+                    当前位置：<a href="#">首页</a> > <a href="#">新闻中心</a> > <a class="current" href="#">公司新闻</a>
+                </div>
+           </div>
+           <div class="con-body">
+               <?php foreach ($news_list as $k => $v) {?>
+               <dl>
+                   <dt><img src="<?php echo CSS_URL;?><?php echo $v['img'];?>"></dt>
+                   <dd>
+                     <p class="s-title"><a href="<?php echo SITE_URL;?>/news/detail.php?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['title'];?></a><span><?php echo $v['create_date'];?></span></p>
+                       <p class="s-con"><?php echo $v['content'];?></p>
+                   </dd>
+               </dl>
+               <?php }?>
+
+               <div class="page">
+                   共有<span>8</span>页，共有<span>74</span>条记录
+                   <a href="#">首页</a><a href="#">上一页</a>
+                   <a href="#">下一页</a><a href="#">尾页</a>
+               </div>
+           </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+
 <?php include(BASE_PATH . '/htdocs/footer.php');?>

@@ -412,13 +412,8 @@ $('body').keypress(function(e){
 //将页面保存下来并发布
 function save_body() {
 	var data = $('#body_content').html();
-	$.post('manage_front_page.php?action=save_data', {data:data}, function(response) {
-		if (response == 'success') {
-			alert('编辑成功');
-			window.location.reload();
-		} else {
-			alert('编辑失败');
-		}
+	$('manage_front_page.php?action=save', {data:data}, function(response) {
+		
 	});
 }
 

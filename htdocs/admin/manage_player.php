@@ -16,7 +16,7 @@ function player_list() {
 		$player_list[$k]['delete_name'] = $v['is_delete'] == 1 ? '未启用' : '启用';
 	}
 // 	pr($player_list);
-	include (ADMIN_VIEW_PATH . '/manage_player.html');
+	include (ADMIN_VIEW_PATH . '/player/manage_player.html');
 }
 
 //编辑球员
@@ -31,7 +31,7 @@ function edit_player() {
 		$player_detail['achievement_year'][$k]	= $temp[0];
 		$player_detail['achievement'][$k]				= $temp[1];
 	}
-	include (ADMIN_VIEW_PATH . '/edit_player.html');
+	include (ADMIN_VIEW_PATH . '/player/edit_player.html');
 }
 
 //提交编辑球员
@@ -41,6 +41,9 @@ function commit_edit_player() {
 	$param['nationality']		= $_POST['nationality'];
 	$param['birth']				= $_POST['birth'];
 	$param['zhan_xing']		= $_POST['zhan_xing'];
+	$param['img']					= $_POST['img'];
+	$param['taojiao']			= $_POST['taojiao'];
+	$param['diban']				= $_POST['diban'];
 	$achievement = $_POST['achievement'];
 	$achievement_year = $_POST['achievement_year'];
 

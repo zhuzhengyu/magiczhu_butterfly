@@ -1,7 +1,76 @@
 <?php
+//管理员管理
 include ('../../config/config.php');//基本配置
-include (MODEL_PATH . '/model.php');//数据库操作基类
-include (MODEL_PATH . '/adminModel.php');//管理员类
-include (MODEL_PATH . '/moduleModel.php');//后台功能模块
 include (BASE_PATH . '/common/admin/common.php');//后台常用方法
 
+checkAdminLogin();//检查管理员登录状态
+$action = isset($_GET['action']) ? $_GET['action'] : 'index';
+
+$action();
+
+function index() {
+	include (ADMIN_VIEW_PATH . '/manage_front_page/index.html');
+}
+
+//保存body中数据
+function save_data() {
+	$data = $_POST['data'];
+	$file = FRONT_VIEW_PATH . '/tmp/body.html';
+	pr($data);
+	file_put_contents(file, '1111');
+}
+
+function index_edit() {
+
+	include (ADMIN_VIEW_PATH . '/manage_front_page/edit.html');
+}
+
+//编辑图片
+function edit_img() {
+	include (ADMIN_VIEW_PATH . '/manage_front_page/edit_img.html');
+}
+
+//提交编辑首页
+function commit_edit_index() {
+	$content = $_POST['content'];
+}
+
+//异步提交图片
+function upload_img_ajax() {
+	$action = isset($_GET['act']) ? $_GET['act'] : '';
+	if($action=='delimg'){
+		$filename = $_POST['imagename'];
+		if(!empty($filename)){
+			unlink('files/'.$filename);
+			echo '1';
+		}else{
+			echo '删除失败.';
+		}
+	}else{
+		$picname = $_FILES['mypic']['name'];
+		$picsize = $_FILES['mypic']['size'];
+		if ($picname != "") {
+			if ($picsize > 1024000) {
+				echo '图片大小不能超过1M';
+				exit;
+			}
+			$type = strstr($picname, '.');
+			if ($type != ".gif" && $type != ".jpg") {
+				echo '图片格式不对！';
+				exit;
+			}
+			$rand = rand(100, 999);
+			$pics = date("YmdHis") . $rand . $type;
+			//上传路径
+			$pic_path = UPLOAD_PATH . "/files/". $pics;
+			move_uploaded_file($_FILES['mypic']['tmp_name'], $pic_path);
+		}
+		$size = round($picsize/1024,2);
+		$arr = array(
+				'name'=>$picname,
+				'pic'=>$pics,
+				'size'=>$size
+		);
+		echo json_encode($arr);
+	}
+}

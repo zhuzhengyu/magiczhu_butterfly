@@ -9,6 +9,11 @@
 		<script>
 		function switch_iframe(url) {
 			$('#iframe_id').attr('src', url);
+			if (url.indexOf("manage_front_page") > -1) {
+				$('#iframe_id').attr('width', '1350px;');
+			} else {
+				$('#iframe_id').attr('width', '945px;;');
+			}
 		}
 		</script>
 	</head>

@@ -5,7 +5,7 @@ class playerModel extends model{
 	/**
 	 * @method 获取球员列表
 	 */
-	public function get_player_list($param) {
+	public function get_player_list($param = array()) {
 		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" ORDER BY id DESC';
 		$result = $this->con->query($sql);
 		while ($row = $result->fetch_assoc()) {
@@ -15,7 +15,7 @@ class playerModel extends model{
 	}
 
 	/**
-	 * @method 新增管理员
+	 * @method 新增球员
 	 * @param array $param
 	 * @return bool
 	 */
@@ -24,15 +24,18 @@ class playerModel extends model{
 		$nationality	= $param['nationality'];
 		$birth				= $param['birth'];
 		$zhan_xing		= $param['zhan_xing'];
+		$img				= $param['img'];
 		$achievement	= $param['achievement'];
-		$sql = 'INSERT INTO ' . $this->table . ' (`name`, `nationality`, `birth`, `zhan_xing`, `achievement`, `create_date`) VALUES
-				("' . $name . '", "' . $nationality . '", "' . $birth . '", "' . $zhan_xing . '", "' . $achievement . '", NOW())';
+		$taojiao			= $param['taojiao'];
+		$diban				= $param['diban'];
+		$sql = 'INSERT INTO ' . $this->table . ' (`name`, `nationality`, `birth`, `zhan_xing`, `achievement`, `img`,`diban`, `taojiao`, `create_date`) VALUES
+				("' . $name . '", "' . $nationality . '", "' . $birth . '", "' . $zhan_xing . '", "' . $achievement . '", "' . $img . '", "' . $diban . '", "' . $taojiao . '" NOW())';
 		$this->con->query($sql);
 		return $this->con->affected_rows;
 	}
 
 	/**
-	 * @method 更新管理员
+	 * @method 更新球员
 	 * @param array $param
 	 * @return bool
 	 */
@@ -43,13 +46,16 @@ class playerModel extends model{
 		$birth				= $param['birth'];
 		$zhan_xing		= $param['zhan_xing'];
 		$achievement	= $param['achievement'];
-		$sql = 'UPDATE ' . $this->table . ' SET `name` = "' . $name . '", `nationality` = "' . $nationality . '", `birth` = "' . $birth . '", `zhan_xing` = "' . $zhan_xing . '", `achievement` = "' . $achievement . '" WHERE id = ' . intval($id);
+		$img				= $param['img'];
+		$taojiao			= $param['taojiao'];
+		$diban				= $param['diban'];
+		$sql = 'UPDATE ' . $this->table . ' SET `name` = "' . $name . '", `nationality` = "' . $nationality . '", `birth` = "' . $birth . '", `zhan_xing` = "' . $zhan_xing . '", `achievement` = "' . $achievement . '", `img` = "' . $img . '", `diban` = "' . $diban . '", `taojiao` = "' . $taojiao . '" WHERE id = ' . intval($id);
 		$this->con->query($sql);
 		return $this->con->affected_rows;
 	}
 
 	/**
-	 * @method 根据球员ID号获取管理员详情
+	 * @method 根据球员ID号获取球员详情
 	 * @param int $id
 	 * @return array
 	 */

@@ -1,0 +1,60 @@
+<div class="form-group"><label class="col-sm-3 control-label">图片宽度:</label><div class="col-sm-9"><input type="text" disabled="" value="186" class="form-control"></div></div>
+<div class="form-group"><label class="col-sm-3 control-label">图片高度:</label><div class="col-sm-9"><input type="text" disabled="" value="190" class="form-control"></div></div>
+<div class="form-group"><label class="col-sm-3 control-label">图片超链接:</label><div class="col-sm-9"><input type="text" value="#" class="form-control" id="img_href"></div></div>
+<div class="form-group"><label class="col-sm-3 control-label">图片地址:</label><div class="col-sm-9"><input type="text" value="http://butterfly.com/images/p2.png" class="form-control" id="img_src"></div></div>
+<div class="form-group">   		<div class="btn_form">            <span>添加附件</span>            <input type="file" name="mypic" id="fileupload">        </div>        <div class="progress">    		<span class="bar"></span><span class="percent">0%</span>		</div>        <div class="files"></div>        <div id="showimg"></div>   </div>
+<input type="submit" class="btn btn-danger center-block" value="提交" onclick="commit_edit_img('img_2');">
+
+<script type="text/javascript">
+$(function () {
+	var bar = $('.bar');
+	var percent = $('.percent');
+	var showimg = $('#showimg');
+	var progress = $(".progress");
+	var files = $(".files");
+	var btn = $(".btn span");
+	$("#fileupload").wrap("<form id='myupload' action='manage_front_page.php?action=upload_img_ajax' method='post' enctype='multipart/form-data'></form>");
+    $("#fileupload").change(function(){
+		$("#myupload").ajaxSubmit({
+			dataType:  'json',
+			beforeSend: function() {
+        		showimg.empty();
+				progress.show();
+        		var percentVal = '0%';
+        		bar.width(percentVal);
+        		percent.html(percentVal);
+				btn.html("上传中...");
+    		},
+    		uploadProgress: function(event, position, total, percentComplete) {
+        		var percentVal = percentComplete + '%';
+        		bar.width(percentVal);
+        		percent.html(percentVal);
+    		},
+			success: function(data) {
+				files.html("<b>"+data.name+"("+data.size+"k)</b> <span class='delimg' rel='"+data.pic+"'>删除</span>");
+				var img = "/ajax_upload/files/"+data.pic;
+				showimg.html("<img width='200px;' src='"+img+"'>");
+				btn.html("添加附件");
+			},
+			error:function(xhr){
+				btn.html("上传失败");
+				bar.width('0')
+				files.html(xhr.responseText);
+			}
+		});
+	});
+	
+	$(".delimg").live('click',function(){
+		var pic = $(this).attr("rel");
+		$.post("action.php?act=delimg",{imagename:pic},function(msg){
+			if(msg==1){
+				files.html("删除成功.");
+				showimg.empty();
+				progress.hide();
+			}else{
+				alert(msg);
+			}
+		});
+	});
+});
+</script>
