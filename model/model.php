@@ -14,16 +14,65 @@ class model{
     public function __destruct() {
 
     }
-
+    
     /**
-     *
+     * @method 获取列表
+     * @return unknown
      */
-    public function getRow($condition) {
-		foreach ($condition as $k => $v) {
-			$where[] .= $k . '=' . $v;
+	public function get_list() {
+		$sql = 'SELECT * FROM ' . $this->table . '';
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
 		}
-    }
-
+		return $data;
+	}
+	
+	/**
+	 * @method 根据ID获取详情
+	 * @param int $id
+	 * @return array
+	 */
+	public function get_detail_by_id($id) {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND id = "' . intval($id) . '"';
+		$result = $this->con->query($sql);
+		$row = $result->fetch_assoc();
+		return $row;
+	}
+	
+	/**
+	 * @method 插入数据
+	 * @param array $param
+	 */
+	public function add($param) {
+		$sql = 'INSERT INTO ' . $this->table . ' ';
+		foreach ($param as $k => $v) {
+			if ($v == '') continue;
+			$real_param[$k] = '"' . $v . '"';
+		}
+		$sql .= '(' . implode(',', array_keys($real_param)) . ')';
+		$sql .= ' VALUES ';
+		$sql .= '(' . implode(',', $real_param) . ')';
+		$this->con->query($sql);
+		return $this->con->affected_rows;
+	}
+	
+	/**
+	 * @method 更新数据
+	 * @param array $param
+	 */
+	public function update($param) {
+		$sql = 'UPDATE ' . $this->table . ' SET ';
+		$id = intval($param['id']);
+		foreach ($param as $k => $v) {
+			if ($v == '') continue;
+			$sql .= $k . '="' . $v . '",';
+		}
+		$sql = substr($sql, 0, -1);
+		$sql .= ' WHERE id = ' . $id;
+		$this->con->query($sql);
+		return $this->con->affected_rows;
+	}
 
 	/**
 	 * 获取多条记录

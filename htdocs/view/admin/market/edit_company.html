@@ -1,0 +1,61 @@
+	<input type="hidden" id="company_id" name="company_id" value="<?php echo $detail['id'];?>"/>
+	<input type="hidden" id="img" name="img" value=""/>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="company_name">公司名称:</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="company_name" name="company_name" placeholder="公司名称" value="<?php echo $detail['company_name'];?>">
+		</div>
+	</div>	
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="address">公司地址:</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="address" name="address" placeholder="公司地址" value="<?php echo $detail['address'];?>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="phone">公司电话:</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="phone" name="phone" placeholder="公司电话" value="<?php echo $detail['phone'];?>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="fax_number">公司传真:</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="fax_number" name="fax_number" placeholder="公司传真" value="<?php echo $detail['fax_number'];?>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="area">所属区域:</label>
+		<div class="col-sm-9">
+			<select class="form-control" id="area" name="area">
+				<option value="0">请选择</option>
+<?php
+foreach ($area_list as $k => $v) {
+?>
+				<option value="<?php echo $v['id'];?>" <?php if($v['id'] == $detail['area_id']) echo 'selected="true"';?> ><?php echo $v['area_name'];?></option>
+<?php
+}
+?>
+			</select>
+		</div>
+	</div>
+	<input type="submit" class="btn btn-danger center-block" value="提交" onClick="commit_edit_company();"/>
+<script>
+	function commit_edit_company() {
+		var company_id = $('#company_id').val();
+		var company_name = $('#company_name').val();
+		var address = $('#address').val();
+		var phone = $('#phone').val();
+		var fax_number = $('#fax_number').val();
+		var area = $('#area').val();
+		
+		$.post('manage_market.php?action=commit_edit_company', {company_id:company_id, company_name:company_name, address:address, phone:phone, fax_number:fax_number, area:area}, function (response) {
+			if (response == 'success') {
+				alert('编辑经销商成功');
+			} else {
+				alert('编辑经销商失败');
+			}
+			$('#company_info').dialog("close");
+		});
+	}
+</script>

@@ -4,9 +4,16 @@ include ('../../config/config.php');//基本配置
 include (BASE_PATH . '/common/admin/common.php');//后台常用方法
 
 checkAdminLogin();//检查管理员登录状态
-$action = isset($_GET['action']) ? $_GET['action'] : 'market_net_list';
+$action = isset($_GET['action']) ? $_GET['action'] : 'map_list';
 
 $action();
+
+//营销网络地图编辑
+function map_list() {
+	
+}
+
+
 
 //营销网络列表
 function market_net_list() {

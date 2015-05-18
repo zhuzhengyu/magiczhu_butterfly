@@ -11,6 +11,7 @@ function __autoload($class_name) {
 	$class_name_array[] = 'newsModel';
 	$class_name_array[] = 'gameModel';
 	$class_name_array[] = 'indexPageModel';
+	$class_name_array[] = 'marketCompanyModel';
 	// 	$class_name_array[] = '';
 	if (in_array($class_name, $class_name_array)) {
 		include (MODEL_PATH . '/' . $class_name . '.php');
