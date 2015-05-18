@@ -1,0 +1,48 @@
+<?php include(BASE_PATH . '/htdocs/header.php');?>
+    <div class="n_banner"></div>
+
+    <div class="container">
+        <div class="side-nav">
+            <p>营销网络</p>
+            <ul>
+                <li><a class="i-nav on" href="javascript:;">区域一级经销商</a></li>
+                <li><a class="i-nav" href="javascript:;">成品拍一级经销商</a></li>
+                <li><a class="i-nav" href="javascript:;">网络经销商</a></li>
+                <li><a class="i-nav" href="javascript:;">网络成品拍经销商</a></li>
+                <li><a class="i-nav" href="javascript:;">北京市零售商</a></li>
+                <li><a class="i-nav" href="javascript:;">河北省零售商</a></li>
+                <li><a class="i-nav" href="javascript:;">12-13年优秀零售商</a></li>
+                <li class="last_list"><a class="i-nav" href="javascript:;">13-14年优秀零售商</a></li>
+            </ul>           
+        </div>
+
+        <div class="main-content">
+           <div class="title clearfix">
+                <p>区域一级经销商<span>DEALER</span></p>
+                <div class="local">
+                    当前位置：<a href="#">首页</a> > <a href="#">营销网络</a> > <a class="current" href="#">区域一级经销商</a>
+                </div>
+           </div>
+           <div class="con">
+<?php
+$count = 0;
+foreach ($list as $k => $v) {
+?>
+                <div class="net_map <?php if($count % 2 == 0) echo 'marr30';?>">
+                    <p class="net_map_title"><?php echo $v['company_name'];?></p>
+                    <p class="net_map_num">电话：<?php echo $v['phone'];?> <span>传真：<?php echo $v['fax_number'];?></span></p>
+                    <p>地址：<?php echo $v['address'];?></p>
+                    <img src="<?php echo CSS_URL;?>/images/net1.jpg">
+                </div>
+<?php
+$count++;
+}
+?>
+                <div class="clear"></div>
+           </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+
+<?php include(BASE_PATH . '/htdocs/footer.php');?>
