@@ -58,3 +58,45 @@ function commit_edit_company() {
 	}
 	exit;
 }
+
+//经销商分类
+function company_class_list() {
+	$model = new marketCompanyClassModel();
+	$company_class_list = $model->get_list();
+	pr($company_class_list);
+	include (ADMIN_VIEW_PATH . '/market/company_class_list.html');
+}
+
+//编辑经销商类别
+function edit_company_class() {
+	$model = new marketCompanyClassModel();
+	$detail = $model->get_detail_by_id($_GET['company_class_id']);
+	
+	$companyModel = new marketCompanyModel();
+	$company_list = $companyModel->get_list();
+	
+	include (ADMIN_VIEW_PATH . '/market/edit_company_class.html');
+}
+
+//提交编辑经销商类别
+function commit_edit_company_class() {
+	$param['id']						= $_POST['company_class_id'];
+	$param['company_id_list']	= implode('|', $_POST['company_id']);
+	$model = new marketCompanyClassModel();
+	$result = $param['id'] ? $model->update($param) : $model->add($param);	
+	
+	if ($result == true) {
+		$username = $_SESSION['username'];
+		$adminModel = new adminModel();
+		$admin_detail = $adminModel->get_admin_detail_by_username($username);
+		$admin_name = $admin_detail['name'];
+		$logModel = new logModel();
+		$log['tag'] = 'manage_player';
+		$log['content'] = $admin_name . '编辑经销商类别信息|' . json_encode($param);
+		$log['level'] = 'info';
+		$logModel->log($log);
+		exit('success');
+	} else {
+		exit('fail');
+	}
+}
