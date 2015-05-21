@@ -34,6 +34,7 @@ function commit_edit_company() {
 	$param['phone']				= $_POST['phone'];
 	$param['fax_number']		= $_POST['fax_number'];
 	$param['area_id']				= $_POST['area'];
+	$param['img']					= $_POST['img'];
 	
 	$marketAreaModel = new marketAreaModel();
 	$area_sort = $marketAreaModel->get_area_sort();
@@ -63,7 +64,6 @@ function commit_edit_company() {
 function company_class_list() {
 	$model = new marketCompanyClassModel();
 	$company_class_list = $model->get_list();
-	pr($company_class_list);
 	include (ADMIN_VIEW_PATH . '/market/company_class_list.html');
 }
 
@@ -72,8 +72,15 @@ function edit_company_class() {
 	$model = new marketCompanyClassModel();
 	$detail = $model->get_detail_by_id($_GET['company_class_id']);
 	
+	$checked_company_arr = explode('|', $detail['company_id_list']);
 	$companyModel = new marketCompanyModel();
 	$company_list = $companyModel->get_list();
+	
+	foreach ($checked_company_arr as $v) {
+		foreach ($company_list as $kk => $vv) {
+			if ($v == $vv['id']) $company_list[$kk]['checked_company'] = true;
+		}
+	}
 	
 	include (ADMIN_VIEW_PATH . '/market/edit_company_class.html');
 }
@@ -82,6 +89,7 @@ function edit_company_class() {
 function commit_edit_company_class() {
 	$param['id']						= $_POST['company_class_id'];
 	$param['company_id_list']	= implode('|', $_POST['company_id']);
+	$param['class_name']		= $_POST['company_class_name'];
 	$model = new marketCompanyClassModel();
 	$result = $param['id'] ? $model->update($param) : $model->add($param);	
 	
@@ -98,5 +106,45 @@ function commit_edit_company_class() {
 		exit('success');
 	} else {
 		exit('fail');
+	}
+}
+
+//异步提交图片
+function upload_img_ajax() {
+	$action = isset($_GET['act']) ? $_GET['act'] : '';
+	if($action=='delimg'){
+		$filename = $_POST['imagename'];
+		if(!empty($filename)){
+			unlink('files/'.$filename);
+			echo '1';
+		}else{
+			echo '删除失败.';
+		}
+	}else{
+		$picname = $_FILES['mypic']['name'];
+		$picsize = $_FILES['mypic']['size'];
+		if ($picname != "") {
+			if ($picsize > 1024000) {
+				echo '图片大小不能超过1M';
+				exit;
+			}
+			$type = strstr($picname, '.');
+			if ($type != ".gif" && $type != ".jpg") {
+				echo '图片格式不对！';
+				exit;
+			}
+			$rand = rand(100, 999);
+			$pics = date("YmdHis") . $rand . $type;
+			//上传路径
+			$pic_path = UPLOAD_PATH . "/files/". $pics;
+			move_uploaded_file($_FILES['mypic']['tmp_name'], $pic_path);
+		}
+		$size = round($picsize/1024,2);
+		$arr = array(
+				'name'=>$picname,
+				'pic'=>$pics,
+				'size'=>$size
+		);
+		echo json_encode($arr);
 	}
 }

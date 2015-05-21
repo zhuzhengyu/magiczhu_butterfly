@@ -1,5 +1,5 @@
 	<input type="hidden" id="company_id" name="company_id" value="<?php echo $detail['id'];?>"/>
-	<input type="hidden" id="img" name="img" value=""/>
+	<input type="hidden" id="img" name="img" value="<?php echo $detail['img'];?>"/>
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="company_name">公司名称:</label>
 		<div class="col-sm-9">
@@ -39,6 +39,13 @@ foreach ($area_list as $k => $v) {
 			</select>
 		</div>
 	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">地图尺寸:</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control"  value="463 x 298" disabled="disabled">
+		</div>
+	</div>
+	<div class="form-group">   		<div class="btn_form">            <span>编辑图片</span>            <input type="file" name="mypic" id="fileupload">        </div>        <div class="progress">    		<span class="bar"></span><span class="percent">0%</span>		</div>        <div class="files"></div>        <div id="showimg"></div>   </div>
 	<input type="submit" class="btn btn-danger center-block" value="提交" onClick="commit_edit_company();"/>
 <script>
 	function commit_edit_company() {
@@ -48,8 +55,9 @@ foreach ($area_list as $k => $v) {
 		var phone = $('#phone').val();
 		var fax_number = $('#fax_number').val();
 		var area = $('#area').val();
+		var img = $('#img').val();
 		
-		$.post('manage_market.php?action=commit_edit_company', {company_id:company_id, company_name:company_name, address:address, phone:phone, fax_number:fax_number, area:area}, function (response) {
+		$.post('manage_market.php?action=commit_edit_company', {company_id:company_id, company_name:company_name, address:address, phone:phone, fax_number:fax_number, area:area, img:img}, function (response) {
 			if (response == 'success') {
 				alert('编辑经销商成功');
 			} else {
@@ -58,4 +66,59 @@ foreach ($area_list as $k => $v) {
 			$('#company_info').dialog("close");
 		});
 	}
+</script>
+<script type="text/javascript">
+$(function () {
+	$('#showimg').html("<img width='200px;' src='"+"<?php echo $detail['img'];?>"+"'>");
+	var bar = $('.bar');
+	var percent = $('.percent');
+	var showimg = $('#showimg');
+	var progress = $(".progress");
+	var files = $(".files");
+	var btn = $(".btn span");
+	$("#fileupload").wrap("<form id='myupload' action='manage_market.php?action=upload_img_ajax' method='post' enctype='multipart/form-data'></form>");
+    $("#fileupload").change(function(){
+		$("#myupload").ajaxSubmit({
+			dataType:  'json',
+			beforeSend: function() {
+        		showimg.empty();
+				progress.show();
+        		var percentVal = '0%';
+        		bar.width(percentVal);
+        		percent.html(percentVal);
+				btn.html("上传中...");
+    		},
+    		uploadProgress: function(event, position, total, percentComplete) {
+        		var percentVal = percentComplete + '%';
+        		bar.width(percentVal);
+        		percent.html(percentVal);
+    		},
+			success: function(data) {
+				files.html("<b>"+data.name+"("+data.size+"k)</b> <span class='delimg' rel='"+data.pic+"'>删除</span>");
+				var img = '<?php echo SITE_URL;?>' + "/upload/files/"+data.pic;
+				showimg.html("<img width='200px;' src='"+img+"'>");
+				$('#img').val("/upload/files/"+data.pic);
+				btn.html("添加附件");
+			},
+			error:function(xhr){
+				btn.html("上传失败");
+				bar.width('0')
+				files.html(xhr.responseText);
+			}
+		});
+	});
+	
+	$(".delimg").live('click',function(){
+		var pic = $(this).attr("rel");
+		$.post("action.php?act=delimg",{imagename:pic},function(msg){
+			if(msg==1){
+				files.html("删除成功.");
+				showimg.empty();
+				progress.hide();
+			}else{
+				alert(msg);
+			}
+		});
+	});
+});
 </script>

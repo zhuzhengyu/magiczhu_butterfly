@@ -13,4 +13,16 @@ class marketCompanyModel extends model{
 		}
 		return $data;
 	}
+	
+	/**
+	 * @method 通过ID列表获取对应公司列表
+	 */
+	public function get_company_list_by_id_list($id_list) {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND id IN(' . $id_list . ')';
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
 }

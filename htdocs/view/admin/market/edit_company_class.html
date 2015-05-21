@@ -11,8 +11,8 @@
 foreach ($company_list as $k => $v) {
 ?>
 	<div class="form-group">
-		<label class="col-sm-1 control-label"><input type="checkbox" class="company_id" id="company_id_<?php echo $k;?>" name="company_id" value="<?php echo $v['id'];?>" checked="true"/></label>
-		<div class="col-sm-11"><?php echo $v['company_name'];?></div>
+		<div class="col-sm-1"><input type="checkbox" class="company_id" id="company_id_<?php echo $k;?>" name="company_id" value="<?php echo $v['id'];?>" <?php if ($v['checked_company'] == 1) echo 'checked="true"';?> /></div>
+		<label class="col-sm-11 control-label"><?php echo $v['company_name'];?></label>
 	</div>	
 <?php
 }
@@ -22,9 +22,10 @@ foreach ($company_list as $k => $v) {
 <script>
 	function commit_edit_company_class() {
 		var company_class_id = $('#company_class_id').val();
+		var company_class_name = $('#company_class_name').val();
 		var company_id = [];
 		company_id = jqchk();
-		$.post('manage_market.php?action=commit_edit_company_class', {company_class_id:company_class_id, company_id:company_id}, function (response) {
+		$.post('manage_market.php?action=commit_edit_company_class', {company_class_id:company_class_id, company_class_name:company_class_name, company_id:company_id}, function (response) {
 			if (response == 'success') {
 				alert('编辑经销商类别成功');
 			} else {
@@ -39,7 +40,9 @@ foreach ($company_list as $k => $v) {
 		$('input[name="company_id"]:checked').each(function(){
 			chk_value.push($(this).val());
 		});
-		alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value);
+		if (chk_value.length==0) {
+			alert('你还没有选择任何内容！');
+		}
 		return chk_value;
 	}
 </script>

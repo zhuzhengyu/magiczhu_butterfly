@@ -6,6 +6,15 @@
         <div class="side-nav">
             <p>营销网络</p>
             <ul>
+<?php
+foreach ($company_class_list as $v) {
+?>
+				<li><a class="i-nav" href="<?php echo SITE_URL . '/market/company_class.php?class_id=' . $v['id'];?>"><?php echo $v['class_name'];?></a></li>
+<?php
+}
+?>
+            
+            <!-- 
                 <li><a class="i-nav on" href="javascript:;">区域一级经销商</a></li>
                 <li><a class="i-nav" href="javascript:;">成品拍一级经销商</a></li>
                 <li><a class="i-nav" href="javascript:;">网络经销商</a></li>
@@ -14,6 +23,7 @@
                 <li><a class="i-nav" href="javascript:;">河北省零售商</a></li>
                 <li><a class="i-nav" href="javascript:;">12-13年优秀零售商</a></li>
                 <li class="last_list"><a class="i-nav" href="javascript:;">13-14年优秀零售商</a></li>
+             -->
             </ul>            
         </div>
 
@@ -21,7 +31,7 @@
            <div class="title clearfix">
                 <p>营销网络<span>NETWORK</span></p>
                 <div class="local">
-                    当前位置：<a href="#">首页</a> > <a class="current" href="#">营销网络</a>
+                    当前位置：<a href="<?php echo SITE_URL;?>">首页</a> > <a class="current" href="<?php echo SITE_URL . '/market/index.php';?>">营销网络</a>
                 </div>
            </div>                
             <div class="con pos_relative">

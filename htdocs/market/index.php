@@ -5,4 +5,6 @@ include (BASE_PATH . '/common/front/common.php');//后台常用方法
 // $newsModel = new newsModel();
 
 // $news_list = $newsModel->get_news_list();
+$companyClassModel = new marketCompanyClassModel();
+$company_class_list = $companyClassModel->get_list();
 include (FRONT_VIEW_PATH . '/market/index.html');

@@ -8,7 +8,7 @@
 <?php
 foreach ($company_class_list as $v) {
 ?>
-				<li><a class="i-nav" href="<?php echo SITE_URL . '/market/company_class.php?class_id=' . $v['id'];?>"><?php echo $v['class_name'];?></a></li>
+				<li><a class="i-nav <?php if($v['id'] == intval($_GET['class_id'])) echo 'on';?>" href="<?php echo SITE_URL . '/market/company_class.php?class_id=' . $v['id'];?>"><?php echo $v['class_name'];?></a></li>
 <?php
 }
 ?>
@@ -17,9 +17,9 @@ foreach ($company_class_list as $v) {
 
         <div class="main-content">
            <div class="title clearfix">
-                <p><?php echo $area_detail['area_name'];?>地区经销商<span>DEALER</span></p>
+                <p><?php echo $company_class_detail['class_name'];?><span>DEALER</span></p>
                 <div class="local">
-                    当前位置：<a href="<?php echo SITE_URL;?>">首页</a> > <a href="<?php echo SITE_URL . '/market/index.php';?>">营销网络</a> > <a class="current" href="<?php echo 'area.php?=id' . $area_detail['id'];?>"><?php echo $area_detail['area_name'];?>地区经销商</a>
+                    当前位置：<a href="<?php echo SITE_URL;?>">首页</a> > <a href="<?php echo SITE_URL . '/market/index.php';?>">营销网络</a> > <a class="current" href="<?php echo 'company_class.php?=class_id' . $company_class_detail['id'];?>"><?php echo $company_class_detail['class_name'];?></a>
                 </div>
            </div>
            <div class="con">
