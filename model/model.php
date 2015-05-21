@@ -71,7 +71,6 @@ class model{
 		$sql = substr($sql, 0, -1);
 		$sql .= ' WHERE id = ' . $id;
 		$this->con->query($sql);
-		pr($sql);
 		return $this->con->affected_rows;
 	}
 
