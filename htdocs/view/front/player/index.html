@@ -5,9 +5,13 @@
         <div class="side-nav">
             <p>签约选手</p>
             <ul>
-                <li><a class="on i-nav" href="javascript:;">亚洲选手</a></li>
-                <li class="last_nav"><a class="i-nav" href="javascript:;">欧洲选手</a></li>
-                
+<?php
+foreach ($continent_list as $k => $v) {
+?>
+				<li><a class="i-nav <?php if ($v['continent'] == $continent) echo 'on';?>" href="<?php echo SITE_URL . '/player/index.php?continent=' . htmlspecialchars($v['continent']);?>"><?php echo $v['continent'];?>选手</a></li>
+<?php
+}
+?>
             </ul>            
         </div>
 
@@ -19,8 +23,9 @@
                 </div>
            </div>
            <div class="con-body">
-           
+           <!-- 
               <img class="mart20" src="<?php echo CSS_URL;?>/images/play1.jpg">
+            -->
                <ul class="palyer">
            <?php
            $count = 0;
@@ -38,29 +43,6 @@
            <?php $count++;}?>
                </ul>
 
-               <img class="mart20" src="<?php echo CSS_URL;?>/images/play2.jpg">
-
-               <ul class="palyer">
-                 <li>
-                  <img src="<?php echo CSS_URL;?>/images/py5.jpg">
-                  <div class="player-con">
-                    <p>姓名：<span>波尔</span></p>
-                    <p>国籍：<span>德国</span></p>
-                    <p>底板：<span>TIMO-BOLL ALC-ST</span></p>
-                    <p>套胶：<span>两面TENERGY 05</span></p>
-                  </div>
-                 </li>
-                 <li class="marl80">
-                  <img src="<?php echo CSS_URL;?>/images/py6.jpg">
-                  <div class="player-con">
-                    <p>姓名：<span>梅兹</span></p>
-                    <p>国籍：<span>丹麦</span></p>
-                    <p>底板：<span>BUTTERFLY特注（ZL CARBON /INNERFIBER）</span></p>
-                    <p>套胶：<span>两面BRYCE SPEED</span></p>
-                  </div>
-                 </li>
-               </ul>
-               
            </div>
         </div>
 

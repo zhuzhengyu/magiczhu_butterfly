@@ -36,12 +36,13 @@ function edit_player() {
 
 //提交编辑球员
 function commit_edit_player() {
-	$param['player_id']		= $_POST['player_id'];
+	$param['id']					= $_POST['player_id'];
 	$param['name']				= $_POST['name'];
+	$param['continent']		= $_POST['continent'];
 	$param['nationality']		= $_POST['nationality'];
 	$param['birth']				= $_POST['birth'];
 	$param['zhan_xing']		= $_POST['zhan_xing'];
-	$param['img']					= $_POST['img'];
+	$param['img']				= $_POST['img'];
 	$param['taojiao']			= $_POST['taojiao'];
 	$param['diban']				= $_POST['diban'];
 	$achievement = $_POST['achievement'];
@@ -53,7 +54,7 @@ function commit_edit_player() {
 	}
 	$param['achievement'] = implode('|', $arr);
 	$playerModel = new playerModel();
-	$result = $param['player_id'] ? $playerModel->update_player($param) : $playerModel->add_player($param);
+	$result = $param['id'] ? $playerModel->update($param) : $playerModel->add($param);
 
 	if ($result == true) {
 		$username = $_SESSION['username'];

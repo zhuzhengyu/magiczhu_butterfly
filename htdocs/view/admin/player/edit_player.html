@@ -7,6 +7,19 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="col-sm-3 control-label" for="continent">所属大洲</label>
+		<div class="col-sm-9">
+			<select class="form-control"  id="continent" name="continent">
+				<option value="0">请选择</option>
+				<option value="亚洲" <?php if ($player_detail['continent'] == '亚洲') echo 'selected';?>>亚洲</option>
+				<option value="欧洲" <?php if ($player_detail['continent'] == '欧洲') echo 'selected';?>>欧洲</option>
+				<option value="北美洲" <?php if ($player_detail['continent'] == '北美洲') echo 'selected';?>>北美洲</option>
+				<option value="南美洲" <?php if ($player_detail['continent'] == '南美洲') echo 'selected';?>>南美洲</option>
+				<option value="非洲" <?php if ($player_detail['continent'] == '非洲') echo 'selected';?>>非洲</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
 		<label class="col-sm-3 control-label" for="nationality">国籍</label>
 		<div class="col-sm-9">
 			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="国籍" value="<?php if(isset($player_detail['nationality'])) {echo $player_detail['nationality'];}?>">
@@ -105,19 +118,20 @@
 	function commit_edit_player() {
 		var player_id = $('#player_id').val();
 		var name = $('#name').val();
+		var continent = $('#continent').val();
 		var nationality = $('#nationality').val();
 		var birth = $('#birth').val();
 		var zhan_xing = $('#zhan_xing').val();
 		var img = $('#img').val();
 		var diban = $('#diban').val();
 		var taojiao = $('#taojiao').val();
-		var achievement = $('#achievement').val();
+//		var achievement = $('#achievement').val();
 		var achievement = [];
 		var achievement_year = [];
 		achievement = getEachValue('achievement');
 		achievement_year = getEachValue('achievement_year');
 		
-		$.post('manage_player.php?action=commit_edit_player',{player_id:player_id, name:name, nationality:nationality, birth:birth, zhan_xing:zhan_xing, achievement:achievement, achievement_year:achievement_year, img:img, taojiao:taojiao, diban:diban}, function(response){
+		$.post('manage_player.php?action=commit_edit_player',{player_id:player_id, name:name, continent:continent, nationality:nationality, birth:birth, zhan_xing:zhan_xing, achievement:achievement, achievement_year:achievement_year, img:img, taojiao:taojiao, diban:diban}, function(response){
 			if (response == 'success') {
 				alert('编辑球员信息成功');
 //				$("#response_success_div").dialog({modal: true,});

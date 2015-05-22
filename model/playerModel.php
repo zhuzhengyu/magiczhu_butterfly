@@ -13,6 +13,18 @@ class playerModel extends model{
 		}
 		return $data;
 	}
+	
+	/**
+	 * @method 根据大洲获取球员列表
+	 */
+	public function get_player_list_by_continent($continent) {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND `continent` = "' . $continent . '" ORDER BY id DESC';
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
 
 	/**
 	 * @method 新增球员
@@ -64,5 +76,17 @@ class playerModel extends model{
 		$result = $this->con->query($sql);
 		$row = $result->fetch_assoc();
 		return $row;
+	}
+	
+	/**
+	 * @method 获取国籍列表
+	 */
+	public function get_continent_list() {
+		$sql = 'SELECT DISTINCT(continent) FROM ' . $this->table . ' WHERE is_delete = "0"';
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
 	}
 }
