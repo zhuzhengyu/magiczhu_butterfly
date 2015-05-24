@@ -32,7 +32,7 @@ foreach ($continent_list as $k => $v) {
 			foreach($player_list as $k => $v) {
 			?>
                  <li <?php if ($count % 2 == 1) echo "class='marl80'";?>>
-                  <img src="<?php echo CSS_URL;?><?php echo $v['img'];?>">
+                  <a target="_blank" href="<?php echo SITE_URL . '/player/detail.php?id=' . $v['id'];?>"><img src="<?php echo CSS_URL;?><?php echo $v['img'];?>"></a>
                   <div class="player-con">
                     <p>姓名：<span><?php echo $v['name'];?></span></p>
                     <p>国籍：<span><?php echo $v['nationality'];?></span></p>

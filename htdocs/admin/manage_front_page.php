@@ -9,15 +9,26 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 $action();
 
 function index() {
+	$model = new indexPageModel();
+	$detail = $model->get_detail_by_id(1);
+	$body = base64_decode($detail['data']);
+
 	include (ADMIN_VIEW_PATH . '/manage_front_page/index.html');
 }
 
 //保存body中数据
 function save_data() {
 	$data = $_POST['data'];
-	$file = FRONT_VIEW_PATH . '/tmp/body.html';
-	pr($data);
-	file_put_contents(file, '1111');
+	$param['id']		= 1;
+	$param['data']	= base64_encode($_POST['data']);
+	$model = new indexPageModel();
+	$result = $param['id'] ? $model->update($param) : $model->add($param);
+
+	if ($result > 0) {
+		exit('success');
+	} else {
+		exit('fail');
+	}
 }
 
 function index_edit() {
