@@ -14,7 +14,7 @@ class model{
     public function __destruct() {
 
     }
-    
+
     /**
      * @method 获取列表
      * @return unknown
@@ -27,7 +27,7 @@ class model{
 		}
 		return $data;
 	}
-	
+
 	/**
 	 * @method 根据ID获取详情
 	 * @param int $id
@@ -39,7 +39,7 @@ class model{
 		$row = $result->fetch_assoc();
 		return $row;
 	}
-	
+
 	/**
 	 * @method 插入数据
 	 * @param array $param
@@ -54,9 +54,9 @@ class model{
 		$sql .= ' VALUES ';
 		$sql .= '(' . implode(',', $real_param) . ')';
 		$this->con->query($sql);
-		return $this->con->affected_rows;
+		return mysqli_insert_id($this->con);
 	}
-	
+
 	/**
 	 * @method 更新数据
 	 * @param array $param
