@@ -71,4 +71,14 @@ class productModel extends model{
 		$this->con->query($sql);
 		return $this->con->affected_rows;
 	}
+	
+	/**
+	 * @method 根据产品编码获取产品详情
+	 */
+	public function get_detail_by_product_no($product_no) {
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND no = "' . $product_no . '"';
+		$result = $this->con->query($sql);
+		$row = $result->fetch_assoc();
+		return $row;
+	}
 }
