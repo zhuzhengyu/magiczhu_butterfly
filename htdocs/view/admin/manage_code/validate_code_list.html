@@ -61,13 +61,19 @@
 				</tr>
 			</thead>
 			<tbody>
-			<?php foreach($list as $k => $v) {?>
+<?php
+if (isset($list) && is_array($list)) {
+	foreach($list as $k => $v) {
+?>
 				<tr>
 					<td><?php echo $v['id'];?></td>
 					<td><?php echo $v['code'];?></td>
 					<td><input class="btn btn-info" type="button" value="详情" onClick="get_code_by_product_class('<?php echo $v['id'];?>');"></td>
 				</tr>
-			<?php }?>
+<?php
+	}
+}
+?>
 			</tbody>
 		</table>
 	</div>

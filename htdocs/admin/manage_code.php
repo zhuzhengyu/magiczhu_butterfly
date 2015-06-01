@@ -58,7 +58,7 @@ function product_code_input() {
 	}
 
 	header("Content-type: text/html; charset=utf-8");
-	exit('<script>alert("导入成功!");</script>');
+	exit('<script>alert("导入成功!");window.history.go(-1);</script>');
 }
 
 //防伪码列表
@@ -77,10 +77,10 @@ function validate_code_input() {
 			exit('上传出现错误');
 			$_FILES["file"]["error"];//获取错误码
 		} else {
-	
+
 		}
 	}
-	
+
 	$validateCodeModel = new validateCodeModel();
 	include LIB_PATH . '/PHPExcel/Classes/PHPExcel/IOFactory.php';
 	$objReader = PHPExcel_IOFactory::createReader('Excel5');
@@ -110,6 +110,6 @@ function validate_code_input() {
 		}
 	}
 	header("Content-type: text/html; charset=utf-8");
-	exit('<script>alert("导入成功!");</script>');
+	exit('<script>alert("导入成功!");window.history.go(-1);</script>');
 }
 

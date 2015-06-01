@@ -71,7 +71,7 @@ class productModel extends model{
 		$this->con->query($sql);
 		return $this->con->affected_rows;
 	}
-	
+
 	/**
 	 * @method 根据产品编码获取产品详情
 	 */
