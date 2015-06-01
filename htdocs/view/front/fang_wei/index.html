@@ -16,16 +16,18 @@
                     当前位置：<a href="<?php echo SITE_URL;?>">首页</a> > <a class="current" href="<?php echo SITE_URL;?>/fang_wei/index.php">防伪查询</a>
                 </div>
            </div>
-           <div class="con-body">                
+           <div class="con-body">
                 <div class="query">
                     <div class="query_l">
-                        <input type="text" name="" placeholder="请输入产品条形码">
+                        <input type="text" name="code" id="code" placeholder="请输入产品条形码">
                         <a href="javascript:check_code();">查询</a>
                     </div>
                     <img class="query_img" src="<?php echo CSS_URL;?>/images/query.jpg">
                 </div>
-                <p class="query_ask">查询结果：</p>
-                <p class="query_ans">此商品为正品！</p>
+                <div id="result">
+	                <p class="query_ask">查询结果：</p>
+	                <p class="query_ans" id="result_msg">此商品为正品！</p>
+                </div>
            </div>
         </div>
 
@@ -39,8 +41,9 @@
 	function check_code() {
 		var url = 'check_code.php';
 		var code = $('#code').val();
-		$.get(url, {code:code}, function(response) {
-			
+		$.post(url, {code:code}, function(response) {
+			$('#result').show();
+			$('#result_msg').html(response);
 		});
 	}
 </script>
