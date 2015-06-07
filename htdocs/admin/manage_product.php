@@ -60,7 +60,8 @@ function batch_upload_product() {
 
 //提交批量上传的产品
 function commit_batch_upload_product() {
-	if (($_FILES["file"]["type"] == "application/vnd.ms-excel") && ($_FILES["file"]["size"] < 2000000)) {
+// 	pr($_FILES);
+	if (($_FILES["file"]["type"] == "application/vnd.ms-excel" || $_FILES["file"]["type"] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') && ($_FILES["file"]["size"] < 2000000)) {
 		if ($_FILES["file"]["error"] > 0) {
 			exit('上传出现错误');
 			$_FILES["file"]["error"];//获取错误码
@@ -107,6 +108,11 @@ function load_excel_to_db() {
 	// 	include LIB_PATH . '/PHPExcel/Classes/PHPExcel.php';
 		$objPHPExcel = PHPExcel_IOFactory::load($real_file);
 		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		pr($sheetData);exit;
+
+
+
+
 		$keys = $sheetData[1];
 		unset($sheetData[1]);
 		foreach ($sheetData as $k => $v) {
