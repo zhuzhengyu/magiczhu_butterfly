@@ -29,6 +29,15 @@ function __autoload($class_name) {
 	$class_name_array[] = 'indexPageModel';
 	$class_name_array[] = 'productClassModel';
 	$class_name_array[] = 'validateCodeModel';
+	$class_name_array[] = 'productChengPinPaiModel';
+	$class_name_array[] = 'productFuZhuangModel';
+	$class_name_array[] = 'productFuJianModel';
+	$class_name_array[] = 'productPingPangQiuTaiModel';
+	$class_name_array[] = 'productQiuPaiModel';
+	$class_name_array[] = 'productTaoJiaoModel';
+	$class_name_array[] = 'productYunDongBaoModel';
+	$class_name_array[] = 'productYunDongXieModel';
+
 // 	$class_name_array[] = '';
 	if (in_array($class_name, $class_name_array)) {
 		include (MODEL_PATH . '/' . $class_name . '.php');
