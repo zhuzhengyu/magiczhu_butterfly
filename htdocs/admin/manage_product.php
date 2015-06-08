@@ -120,6 +120,7 @@ function load_excel_to_db() {
 		unset($sheetData[1]);
 		if ($sheetData && is_array($sheetData)) $function[$type]($sheetData);
 		exit;
+	}
 }
 
 //产品列表
