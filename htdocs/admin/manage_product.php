@@ -103,38 +103,23 @@ function load_excel_to_db() {
 	$file = $excelModel->get_file_by_id($excel_id);
 	if ($file) {
 		$real_file = UPLOAD_PATH . '/product/' . $file;
-
 		include LIB_PATH . '/PHPExcel/Classes/PHPExcel/IOFactory.php';
 	// 	include LIB_PATH . '/PHPExcel/Classes/PHPExcel.php';
 		$objPHPExcel = PHPExcel_IOFactory::load($real_file);
 		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 		$type = get_excel($sheetData[1]);
-		
-		
-		
-		
-		pr($sheetData[1]);
-		pr(get_excel($sheetData[1]));
-		exit;
 
-
-
-
-		$keys = $sheetData[1];
+		$function['成品拍']		= 'load_cheng_pin_pai';
+		$function['服装']			= 'load_fu_zhuang';
+		$function['附件']			= 'load_fu_jian';
+		$function['乒乓球台']	= 'load_ping_pang_qiu_tai';
+		$function['球拍']			= 'load_qiu_pai';
+		$function['套胶']			= 'load_tao_jiao';
+		$function['运动包']		= 'load_yun_dong_bao';
+		$function['运动鞋']		= 'load_yun_dong_xie';
 		unset($sheetData[1]);
-		foreach ($sheetData as $k => $v) {
-			$param[$k]['no']			= $v['A'];
-			$param[$k]['name']		= $v['B'];
-			$param[$k]['price']		= $v['C'];
-			$param[$k]['category']	= $v['D'];
-		}
-
-		//数据批量导入至数据库
-		$productModel = new productModel();
-		$productModel->batch_insert_db($param);
-		$excelModel->chage_state($excel_id);
-	}
-	batch_upload_product();
+		if ($sheetData && is_array($sheetData)) $function[$type]($sheetData);
+		exit;
 }
 
 //产品列表
@@ -184,7 +169,178 @@ function commit_edit_product() {
 	}
 }
 
+//将成品拍数据写入DB
+function load_cheng_pin_pai($data) {
+	$model = new productChengPinPaiModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']							= $v['A'];
+		$param['name']						= $v['B'];
+		$param['c_short_name']		= $v['C'];
+		$param['e_short_name']		= $v['D'];
+		$param['da_fa_lei_bie']			= $v['E'];
+		$param['hai_mian_hou_du']	= $v['F'];
+		$param['he_ban_zhong_lei']	= $v['G'];
+		$param['mu_cai']					= $v['H'];
+		$param['mian_ban_cai_zhi']	= $v['I'];
+		$param['chan_di']					= $v['J'];
+		$param['price']						= $v['K'];
+		$model->add($param);
+	}
+}
 
+//将服装数据写入DB
+function load_fu_zhuang($data) {
+	$model = new productFuZhuangModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']						= $v['A'];
+		$param['name']					= $v['B'];
+		$param['c_short_name']	= $v['C'];
+		$param['e_short_name']	= $v['D'];
+		$param['color']					= $v['E'];
+		$param['size']						= $v['F'];
+		$param['mian_liao']			= $v['G'];
+		$param['te_xing_1']			= $v['H'];
+		$param['te_xing_2']			= $v['I'];
+		$param['te_xing_3']			= $v['J'];
+		$param['chan_di']				= $v['K'];
+		$param['price']					= $v['L'];
+		$model->add($param);
+	}
+}
+
+//将附件数据写入DB
+function load_fu_jian($data) {
+	$model = new productFuJianModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']						= $v['A'];
+		$param['name']					= $v['B'];
+		$param['c_short_name']	= $v['C'];
+		$param['e_short_name']	= $v['D'];
+		$param['size']						= $v['E'];
+		$param['mian_liao']			= $v['F'];
+		$param['te_xing_1']			= $v['G'];
+		$param['te_xing_2']			= $v['H'];
+		$param['te_xing_3']			= $v['I'];
+		$param['chan_di']				= $v['J'];
+		$param['price']					= $v['K'];
+		$model->add($param);
+	}
+}
+
+//将乒乓球台数据写入DB
+function load_ping_pang_qiu_tai($data) {
+	$model = new productPingPangQiuTaiModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']						= $v['A'];
+		$param['name']					= $v['B'];
+		$param['c_short_name']	= $v['C'];
+		$param['e_short_name']	= $v['D'];
+		$param['kuan_shi']			= $v['E'];
+		$param['mian_ban_hou_du']	= $v['F'];
+		$param['mian_ban_cai_zhi']		= $v['G'];
+		$param['weight']				= $v['H'];
+		$param['zhuo_jiao']			= $v['I'];
+		$param['jiao_jie_mian']		= $v['J'];
+		$param['te_xing']				= $v['K'];
+		$param['chan_di']				= $v['L'];
+		$param['price']					= $v['M'];
+		$model->add($param);
+	}
+}
+
+//将球拍数据写入DB
+function load_qiu_pai() {
+	$model = new productQiuPaiModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']							= $v['A'];
+		$param['name']						= $v['B'];
+		$param['c_short_name']		= $v['C'];
+		$param['e_short_name']		= $v['D'];
+		$param['da_fa_lei_bie']			= $v['E'];
+		$param['qiu_pai_su_cai']		= $v['F'];
+		$param['ban_bing_xing_zhuang']	= $v['G'];
+		$param['ban_mian_xing_zhuang']	= $v['H'];
+		$param['he_ban_zhong_lei']	= $v['I'];
+		$param['te_xing']					= $v['J'];
+		$param['qiu_pai_hou_du']		= $v['K'];
+		$param['qiu_pai_zhong_lei']	= $v['L'];
+		$param['ban_mian_chi_cun']= $v['M'];
+		$param['shou_bing_chi_cun']	= $v['N'];
+		$param['chan_di']					= $v['O'];
+		$param['price']						= $v['P'];
+		$model->add($param);
+	}
+}
+
+//将套胶写入DB
+function load_tao_jiao() {
+	$model = new productTaoJiaoModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']							= $v['A'];
+		$param['name']						= $v['B'];
+		$param['c_short_name']		= $v['C'];
+		$param['e_short_name']		= $v['D'];
+		$param['tao_jiao_zhong_lei']= $v['E'];
+		$param['tao_jiao_yan_se']		= $v['F'];
+		$param['hai_mian_hou_du']	= $v['G'];
+		$param['tao_jiao_tan_xing']	= $v['H'];
+		$param['tao_jiao_xuan_zhuang']	= $v['I'];
+		$param['tao_jiao_ying_du']	= $v['J'];
+		$param['tao_jiao_te_xing']	= $v['K'];
+		$param['tao_jiao_hou_du']	= $v['L'];
+		$param['chan_di']					= $v['M'];
+		$param['price']						= $v['N'];
+		$model->add($param);
+	}
+}
+
+//将运动包数据写入DB
+function load_yun_dong_bao() {
+	$model = new productYunDongBaoModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']							= $v['A'];
+		$param['name']						= $v['B'];
+		$param['c_short_name']		= $v['C'];
+		$param['e_short_name']		= $v['D'];
+		$param['color']						= $v['E'];
+		$param['size']							= $v['F'];
+		$param['mian_liao']				= $v['G'];
+		$param['te_xing_1']				= $v['H'];
+		$param['te_xing_2']				= $v['I'];
+		$param['te_xing_3']				= $v['J'];
+		$param['chan_di']					= $v['K'];
+		$param['price']						= $v['L'];
+		$model->add($param);
+	}
+}
+
+//将运动鞋数据写入DB
+function load_yun_dong_xie() {
+	$model = new producYunDongXieModel();
+	foreach ($data as $k => $v) {
+		$param = array();
+		$param['no']							= $v['A'];
+		$param['name']						= $v['B'];
+		$param['c_short_name']		= $v['C'];
+		$param['e_short_name']		= $v['D'];
+		$param['color']						= $v['E'];
+		$param['size']							= $v['F'];
+		$param['cai_zhi']					= $v['G'];
+		$param['te_xing_1']				= $v['H'];
+		$param['te_xing_2']				= $v['I'];
+		$param['te_xing_3']				= $v['J'];
+		$param['chan_di']					= $v['K'];
+		$param['price']						= $v['L'];
+		$model->add($param);
+	}
+}
 
 //识别属于哪个产品类型
 function get_excel($data) {
@@ -298,7 +454,7 @@ function get_excel($data) {
 	$type['运动鞋']['K'] = '特性3';
 	$type['运动鞋']['L'] = '产地';
 	$type['运动鞋']['M'] = '零售价';
-	
+
 	foreach ($type as $k => $v) {
 		if ($v == $data) return $k;
 	}
