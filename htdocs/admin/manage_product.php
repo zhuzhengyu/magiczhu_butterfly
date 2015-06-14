@@ -109,17 +109,30 @@ function load_excel_to_db() {
 		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 		$type = get_excel($sheetData[1]);
 
-		$function['成品拍']		= 'load_cheng_pin_pai';
-		$function['服装']			= 'load_fu_zhuang';
-		$function['附件']			= 'load_fu_jian';
-		$function['乒乓球台']	= 'load_ping_pang_qiu_tai';
-		$function['球拍']			= 'load_qiu_pai';
-		$function['套胶']			= 'load_tao_jiao';
-		$function['运动包']		= 'load_yun_dong_bao';
-		$function['运动鞋']		= 'load_yun_dong_xie';
+		$function_pre = 'load_';
+		$function['成品拍']		= 'cheng_pin_pai';
+		$function['服装']			= 'fu_zhuang';
+		$function['附件']			= 'fu_jian';
+		$function['乒乓球台']	= 'ping_pang_qiu_tai';
+		$function['球拍']			= 'qiu_pai';
+		$function['套胶']			= 'tao_jiao';
+		$function['运动包']		= 'yun_dong_bao';
+		$function['运动鞋']		= 'yun_dong_xie';
 		unset($sheetData[1]);
-		if ($sheetData && is_array($sheetData)) $function[$type]($sheetData);
-		exit;
+		if ($sheetData && is_array($sheetData)) {
+			$real_function = $function_pre . $function[$type];
+			$real_function($sheetData);
+			$productModel = new productModel();
+			foreach ($sheetData as $k => $v) {
+				$productParam['no']							= $v['A'];
+				$productParam['name']					= $v['B'];
+				$productParam['category_name']	= $function[$type];
+				$productModel->add($productParam);
+			}
+			$excelModel->update(array('id' => $excel_id, 'state' => 2));
+			exit('<script>alert("导入成功!");window.history.go(-1);</script>');
+		}
+		exit('<script>alert("导入失败!");</script>');
 	}
 }
 
@@ -128,6 +141,7 @@ function product_list() {
 	$productModel = new productModel();
 	$param = array();
 	$product_list = $productModel->get_product_list($param);
+	pr($product_list);
 	foreach ($product_list as $k => $v) {
 		$product_list[$k]['publish_name'] = $v['is_publish'] == 1 ? '已发布' : '未发布';
 	}
@@ -254,7 +268,7 @@ function load_ping_pang_qiu_tai($data) {
 }
 
 //将球拍数据写入DB
-function load_qiu_pai() {
+function load_qiu_pai($data) {
 	$model = new productQiuPaiModel();
 	foreach ($data as $k => $v) {
 		$param = array();
@@ -279,7 +293,7 @@ function load_qiu_pai() {
 }
 
 //将套胶写入DB
-function load_tao_jiao() {
+function load_tao_jiao($data) {
 	$model = new productTaoJiaoModel();
 	foreach ($data as $k => $v) {
 		$param = array();
@@ -302,7 +316,7 @@ function load_tao_jiao() {
 }
 
 //将运动包数据写入DB
-function load_yun_dong_bao() {
+function load_yun_dong_bao($data) {
 	$model = new productYunDongBaoModel();
 	foreach ($data as $k => $v) {
 		$param = array();
@@ -323,8 +337,8 @@ function load_yun_dong_bao() {
 }
 
 //将运动鞋数据写入DB
-function load_yun_dong_xie() {
-	$model = new producYunDongXieModel();
+function load_yun_dong_xie($data) {
+	$model = new productYunDongXieModel();
 	foreach ($data as $k => $v) {
 		$param = array();
 		$param['no']							= $v['A'];
@@ -369,7 +383,7 @@ function get_excel($data) {
 	$type['服装']['I'] = '特性2';
 	$type['服装']['J'] = '特性3';
 	$type['服装']['K'] = '产地';
-	$type['服装']['K'] = '零售价';
+	$type['服装']['L'] = '零售价';
 	//附件
 	$type['附件']['A'] = '存货编码';
 	$type['附件']['B'] = '品名';
