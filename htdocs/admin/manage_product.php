@@ -10,7 +10,19 @@ $action();
 
 //上传压缩文件
 function upload_img_zip() {
-	include (ADMIN_VIEW_PATH . '/upload_img_zip.html');
+	$param['page_no'] = isset($_GET['page_no']) ? $_GET['page_no'] : '1';
+	$param['per_page'] = isset($_GET['per_page']) ? $_GET['per_page'] : '10';
+
+	$model = new imgZipModel();
+	$list = $model->get_list();
+	foreach ($list as $k => $v) {
+		$file = explode('_', $v['file']);
+		$file_extension = explode('.', $v['file']);
+		$list[$k]['origin_file']		= $file[0] . '.' . $file_extension[1];
+		$list[$k]['is_in_db']			= $v['state'] == '2' ? '是' : '否';//是否已导入至数据库
+		$list[$k]['download_url']	= UPLOAD_URL . '/img_zip/' . $v['file'];
+	}
+	include (ADMIN_VIEW_PATH . '/manage_product/upload_img_zip.html');
 }
 
 //开始上传图片压缩包
@@ -20,10 +32,19 @@ function commit_upload_img_zip() {
 			exit('上传出现错误');
 			$_FILES["file"]["error"];//获取错误码
 		} else {
+// 			$file_name_arr = explode('.', $_FILES["file"]["name"]);
+// 			$new_file_name = $file_name_arr[0] . '_' . date('YmdHis') . '.' . $file_name_arr[1];
+// 			move_uploaded_file($_FILES["file"]["tmp_name"], UPLOAD_PATH . '/product/' . $new_file_name);
 			$file_name_arr = explode('.', $_FILES["file"]["name"]);
 			$new_file_name = $file_name_arr[0] . '_' . date('YmdHis') . '.' . $file_name_arr[1];
-			move_uploaded_file($_FILES["file"]["tmp_name"],
-			UPLOAD_PATH . '/product/' . $new_file_name);
+			$file_position = UPLOAD_PATH . '/img_zip/' . $new_file_name;
+			move_uploaded_file($_FILES["file"]["tmp_name"], $file_position);
+
+			$data['file'] = $new_file_name;
+			$data['create_date'] = date('Y-m-d H:i:s');
+			//记录产品
+			$excelModel = new imgZipModel();
+			$excelModel->add($data);
 		}
 	}
 	else
@@ -96,6 +117,37 @@ function commit_batch_upload_product() {
 	}
 }
 
+//将图片解压至文件中
+function load_img_zip_to_file() {
+	$img_zip_id = $_GET['img_zip_id'];
+	$model = new imgZipModel();
+	$file = $model->get_detail_by_id($img_zip_id);
+	$real_zip = UPLOAD_PATH . '/img_zip/' . $file['file'];
+	$zip = zip_open($real_zip);
+
+	if ($zip) {
+		while ($zip_entry = zip_read($zip)) {
+			$temp_img = UPLOAD_PATH . '/img/' . zip_entry_name($zip_entry);
+			if (zip_entry_open($zip, $zip_entry, "r")) //打开 ZIP 文件中的一个项目以供读取
+			{
+				$content = zip_entry_read($zip_entry,zip_entry_filesize($zip_entry));//读取 ZIP 文件中的一个打开的项目
+				if($fp = fopen($temp_img,'w'))  //打开创建一个写入文件
+				{
+					if(fwrite($fp,$content)) //写入文件
+					{
+						fclose($fp);        //关闭文件
+					}
+				}
+			};
+			zip_entry_close($zip_entry); //关闭zip中打开的项目
+		}
+		zip_close($zip);
+		$model->update(array('id' => $img_zip_id, 'state' => 2));
+		exit('<script>alert("导入成功!");window.history.go(-1);</script>');
+	}
+	exit('<script>alert("导入失败!");</script>');
+}
+
 //将指定excel导入至数据库
 function load_excel_to_db() {
 	$excel_id = $_GET['excel_id'];
@@ -145,7 +197,7 @@ function product_list() {
 	foreach ($product_list as $k => $v) {
 		$product_list[$k]['publish_name'] = $v['is_publish'] == 1 ? '已发布' : '未发布';
 	}
-	include (ADMIN_VIEW_PATH . '/product_list.html');
+	include (ADMIN_VIEW_PATH . '/manage_product/product_list.html');
 }
 
 //编辑产品
@@ -155,7 +207,7 @@ function edit_product() {
 		$productModel = new productModel();
 // 		$product_detail = $productModel->get_product_detail_by_id($product_id);
 		$product_detail = $productModel->get_detail_by_id($product_id);
-		
+
 		$product_model_list['cheng_pin_pai']		= 'productChengPinPaiModel';
 		$product_model_list['fu_zhuang']				= 'productFuZhuangModel';
 		$product_model_list['fu_jian']					= 'productFuJianModel';
@@ -167,7 +219,7 @@ function edit_product() {
 		$model_name = $product_model_list[$product_detail['category_name']];
 		$model = new $model_name();
 		$real_detail = $model->get_detail_by_condition(array('no' => $product_detail['no']));
-		
+
 		$first_detail_id = $product_detail['id'];
 		$second_detail_id = $real_detail['id'];
 		$category_name = $product_detail['category_name'];
@@ -196,7 +248,7 @@ function translate_name($k) {
 	$data['name']					= '品名';
 	$data['c_short_name']		= '中文简称';
 	$data['e_short_name']		= '字母简称';
-	
+
 	$data['da_fa_lei_bie']			= '打法类别';
 	$data['hai_mian_hou_du']	= '海绵厚度';
 	$data['he_ban_zhong_lei']	= '合板种类';
