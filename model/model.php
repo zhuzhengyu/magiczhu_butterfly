@@ -39,7 +39,7 @@ class model{
 		$row = $result->fetch_assoc();
 		return $row;
 	}
-	
+
 	/**
 	 * @method 根据条件获取一条记录详情
 	 * @param array $param

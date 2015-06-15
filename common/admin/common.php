@@ -37,6 +37,7 @@ function __autoload($class_name) {
 	$class_name_array[] = 'productTaoJiaoModel';
 	$class_name_array[] = 'productYunDongBaoModel';
 	$class_name_array[] = 'productYunDongXieModel';
+	$class_name_array[] = 'imgZipModel';
 
 // 	$class_name_array[] = '';
 	if (in_array($class_name, $class_name_array)) {
