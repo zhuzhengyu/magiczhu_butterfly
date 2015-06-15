@@ -39,6 +39,22 @@ class model{
 		$row = $result->fetch_assoc();
 		return $row;
 	}
+	
+	/**
+	 * @method 根据条件获取一条记录详情
+	 * @param array $param
+	 * @return array
+	 */
+	public function get_detail_by_condition($param) {
+		foreach ($param as $k => $v) {
+			$query_arr[] = '`' . $k . '` = "' . $v . '"';
+		}
+		$query_str = implode(' AND ', $query_arr);
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND ' . $query_str;
+		$result = $this->con->query($sql);
+		$row = $result->fetch_assoc();
+		return $row;
+	}
 
 	/**
 	 * @method 插入数据

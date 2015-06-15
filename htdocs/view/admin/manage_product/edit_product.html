@@ -1,0 +1,43 @@
+<input type="hidden" id="first_detail_id" name="first_detail_id" value="<?php echo $first_detail_id;?>"/>
+<input type="hidden" id="second_detail_id" name="second_detail_id" value="<?php echo $second_detail_id;?>"/>
+<input type="hidden" id="category_name" name="category_name" value="<?php echo $category_name;?>"/>
+<?php
+foreach ($show_detail as $k => $v) {
+?>
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="<?php echo $k;?>"><?php echo $v['name'];?></label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" id="<?php echo $k;?>" name="<?php echo $k;?>" placeholder="<?php echo $v['value'];?>" value="<?php echo $v['value'];?>">
+		</div>
+	</div>
+<?php
+}
+?>
+	<input type="submit" class="btn btn-danger center-block" value="提交" onClick="commit_edit_product();"/>
+<script>
+	function commit_edit_product() {
+		var first_detail_id = $('#first_detail_id').val();
+		var second_detail_id = $('#second_detail_id').val();
+		var category_name = $('#category_name').val();
+<?php
+foreach ($show_detail as $k => $v) {
+	echo 'var ' . $k . ' = ' . '$("#' . $k . '").val();' . "\r\n";
+}		
+?>
+		$.post('manage_product.php?action=commit_edit_product', {first_detail_id:first_detail_id, second_detail_id:second_detail_id, category_name:category_name, 
+<?php
+foreach ($show_detail as $k => $v) {
+	echo $k . ':' . $k . ',';
+}
+?>
+			}, function(response){
+			$('#product_info').dialog("close");
+			if (response == 'success') {
+				$("#response_success_div").dialog({modal: true,});
+			} else {
+				$("#response_fail_div").dialog({modal: true,});
+			}
+		});
+	}
+</script>
+	
