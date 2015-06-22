@@ -243,7 +243,6 @@ function change_array($data) {
 
 //翻译部分字段
 function translate_name($k) {
-// 	pr($k);
 	$data['no']						= '存货编码';
 	$data['name']					= '品名';
 	$data['c_short_name']		= '中文简称';
@@ -258,6 +257,7 @@ function translate_name($k) {
 	$data['price']						= '零售价';
 	$data['color']					= '颜色';
 	$data['chi_cun']				= '尺寸';
+	$data['size']						= '尺寸';
 	$data['mian_liao']				= '面料';
 	$data['te_xing_1']				= '特性1';
 	$data['te_xing_2']				= '特性2';
@@ -282,6 +282,15 @@ function translate_name($k) {
 	$data['chi_ma']					= '尺码';
 	$data['cai_zhi']					= '材质';
 	$data['xie_di']					= '鞋底';
+
+	$data['fan_tan_te_xing']		= '反弹特性';
+	$data['zhen_dong_te_xing']	= '震动特性';
+	$data['ban_mian_xing_zhuang']	= '版面形状';
+	$data['qiu_pai_hou_du']		= '球拍厚度';
+	$data['qiu_pai_zhong_lei']	= '球拍种类';
+	$data['ban_mian_chi_cun']	= '版面尺寸';
+	$data['shou_bing_chi_cun']	= '手柄尺寸';
+
 // 	$data['']		= '';
 // 	$data['']		= '';
 // 	$data['']		= '';
