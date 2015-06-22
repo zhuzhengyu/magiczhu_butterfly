@@ -81,8 +81,9 @@ function batch_upload_product() {
 
 //提交批量上传的产品
 function commit_batch_upload_product() {
+	set_time_limit(600);
 // 	pr($_FILES);
-	if (($_FILES["file"]["type"] == "application/vnd.ms-excel" || $_FILES["file"]["type"] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') && ($_FILES["file"]["size"] < 2000000)) {
+	if (($_FILES["file"]["type"] == "application/vnd.ms-excel" || $_FILES["file"]["type"] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') && ($_FILES["file"]["size"] < 1024 * 100)) {
 		if ($_FILES["file"]["error"] > 0) {
 			exit('上传出现错误');
 			$_FILES["file"]["error"];//获取错误码
