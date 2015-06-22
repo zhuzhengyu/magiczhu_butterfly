@@ -29,6 +29,44 @@ class model{
 	}
 
 	/**
+	 * @method 获取最大行数
+	 * @param array $param
+	 * @return int
+	 */
+	public function get_max_row($param) {
+		foreach ($param as $k => $v) {
+			$query_arr[] = '`' . $k . '` = "' . $v . '"';
+		}
+		$query_str = implode(' AND ', $query_arr);
+		$sql = 'SELECT COUNT(1) as ct FROM ' . $this->table . ' WHERE is_delete = "0" AND ' . $query_str;
+		$result = $this->con->query($sql);
+		$row = $result->fetch_assoc();
+		return $row['ct'];
+	}
+
+	public function get_list_by_condition($param, $limit = null, $offset = null, $order_by = ' id DESC') {
+		foreach ($param as $k => $v) {
+			$query_arr[] = '`' . $k . '` = "' . $v . '"';
+		}
+		$query_str = implode(' AND ', $query_arr);
+		$sql = 'SELECT * FROM ' . $this->table . ' WHERE is_delete = "0" AND ' . $query_str;
+
+		$sql .= ' ORDER BY ' . $order_by;
+		if($limit!=null){
+			$sql.=" LIMIT ".mysql_real_escape_string($limit);
+		}
+
+		if($offset!=null){
+			$sql.=" OFFSET ".mysql_real_escape_string($offset);
+		}
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+
+	/**
 	 * @method 根据ID获取详情
 	 * @param int $id
 	 * @return array
