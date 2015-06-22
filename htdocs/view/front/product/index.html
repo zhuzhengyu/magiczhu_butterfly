@@ -5,40 +5,13 @@
         <div class="side-nav">
             <p>产品展示</p>
             <ul>
-                <li><a class="i-nav on" href="javascript:;">最新产品</a></li>
-                <li><a class="i-nav" href="javascript:;">套胶</a>
-                  <dl>
-                    <dd><a href="#">国产运动服</a></dd>
-                    <dd><a href="#">短裤</a></dd>
-                    <dd><a href="#">短袖</a></dd>
-                    <dd class="last_list"><a href="#">国产运动服</a></dd>
-                  </dl>
-                </li>
-                <li><a class="i-nav" href="javascript:;">底板</a>
-                  <dl>
-                    <dd><a href="#">国产运动服</a></dd>
-                    <dd><a href="#">短裤</a></dd>
-                    <dd><a href="#">短袖</a></dd>
-                    <dd class="last_list"><a href="#">国产运动服</a></dd>
-                  </dl>
-                </li>
-                <li>
-                  <a class="i-nav" href="javascript:;">服装</a>
-                  <dl>
-                    <dd><a href="#">国产运动服</a></dd>
-                    <dd><a href="#">短裤</a></dd>
-                    <dd><a href="#">短袖</a></dd>
-                    <dd><a href="#">套服</a></dd>
-                    <dd><a href="#">球袜</a></dd>
-                    <dd class="last_list"><a href="#">国产运动服</a></dd>
-                  </dl>
-                </li>
-                <li><a class="i-nav" href="javascript:;">运动鞋</a></li>
-                <li><a class="i-nav" href="javascript:;">球包</a></li>
-                <li><a class="i-nav" href="javascript:;">成品拍</a></li>
-                <li><a class="i-nav" href="javascript:;">球台</a></li>
-                <li class="last_list"><a class="i-nav" href="javascript:;">附件</a></li>
-                
+<?php
+foreach ($category_name_array as $k => $v) {
+?>
+				<li><a class="i-nav <?php if ($product_class == $k) echo 'on';?>" href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $k;?>"><?php echo $v;?></a></li>
+<?php
+}
+?>
             </ul>            
         </div>
 
@@ -46,51 +19,49 @@
            <div class="title clearfix">
                 <p>最新产品<span>PRODUCT</span></p>
                 <div class="local">
-                    当前位置：<a href="#">首页</a> > <a href="#">产品展示</a> > <a class="current" href="#">最新产品</a>
+                    当前位置：<a href="#">首页</a> > <a href="#">产品展示</a> > <a class="current" href="#"><?php echo $product_class_name;?></a>
                 </div>
            </div>
            <div class="con-body">                
                 <div class="con">
                     <table class="product-list">
-                      <tr>
-                        <td>
-                          <div class="pro_left">
-                            <p class="pro_title">国产运动服</p>
-                            <p class="pro_info">WSW427</p>
-                            <p class="pro_price"><span>￥</span>1498</p>
-                          </div>
-                          <a href="<?php echo SITE_URL;?>/product/detail.php">
-                          	<img src="<?php echo CSS_URL;?>/images/pro.jpg">
-                          </a>
-                        </td>
-                        <td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro.jpg"></a></td>
-                        <td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro.jpg"></a></td>
-                      </tr>
-
-                      <tr>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro1.jpg"></a></td>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro1.jpg"></a></td>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro1.jpg"></a></td>
-                      </tr>
-
-                      <tr>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro.jpg"></a></td>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro.jpg"></a></td>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro.jpg"></a></td>
-                      </tr>
-
-                      <tr>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro1.jpg"></a></td>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro1.jpg"></a></td>
-                      	<td><div class="pro_left"><p class="pro_title">国产运动服</p><p class="pro_info">WSW427</p><p class="pro_price"><span>￥</span>1498</p></div><a href="<?php echo SITE_URL;?>/product/detail.php"><img src="<?php echo CSS_URL;?>/images/pro1.jpg"></a></td>
-                      </tr>
+<?php
+$count = 1;
+foreach ($product_list as $k => $v) {
+	if ($count % 3== 1) {
+?>
+						<tr>
+<?php
+	}
+?>
+							<td>
+								<div class="pro_left">
+									<p class="pro_title"><?php echo $v['name'];?></p>
+									<p class="pro_info"><?php echo $v['no'];?></p>
+									<p class="pro_price"><span>￥</span><?php echo $v['price'];?></p>
+								</div>
+								<a href="<?php echo SITE_URL;?>/product/detail.php?product_id=<?php echo $v['real_product_id'];?>">
+									<img src="<?php echo CSS_URL;?>/upload/img/<?php echo $v['no']?>_small.jpg">
+								</a>
+							</td>
+<?php
+	if ($count % 3== 0) {
+?>
+						</tr>
+<?php
+	}
+$count++;
+}
+?>
                     </table>
                 </div>
 
                 <div class="page">
-                   共有<span>8</span>页，共有<span>74</span>条记录
-                   <a href="#">首页</a><a href="#">上一页</a>
-                   <a href="#">下一页</a><a href="#">尾页</a>
+                   共有<span><?php echo $last_page;?></span>页，共有<span><?php echo $max_row;?></span>条记录
+                   <a href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $prodcut_class;?>&page_no=<?php echo $first_page;?>">首页</a>
+                   <a href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $product_class;?>&page_no=<?php echo $pre_page;?>">上一页</a>
+                   <a href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $product_class;?>&page_no=<?php echo $next_page;?>">下一页</a>
+                   <a href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $product_class;?>&page_no=<?php echo $last_page;?>">尾页</a>
                </div>
            </div>
         </div>
