@@ -5,7 +5,6 @@ include (BASE_PATH . '/common/front/common.php');//后台常用方法
 $productModel = new productModel();
 $product_id = intval($_GET['product_id']);
 $detail = $productModel->get_detail_by_id($product_id);
-pr($detail['category_name']);
 
 $category_name_array['cheng_pin_pai']		= '成品拍';
 $category_name_array['fu_zhuang']				= '服装';
