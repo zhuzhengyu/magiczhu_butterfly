@@ -1,45 +1,19 @@
 <?php include(BASE_PATH . '/htdocs/header.php');?>
-
+    <script src="<?php echo CSS_URL;?>/js/com.js?<?php echo CSS_VERSION;?>"></script>
+    <script src="<?php echo CSS_URL;?>/js/cloud-zoom.1.0.2.min.js?<?php echo CSS_VERSION;?>"></script>
     <div class="n_banner"></div>
 
     <div class="container">
         <div class="side-nav">
             <p>产品展示</p>
             <ul>
-                <li><a class="i-nav on" href="javascript:;">最新产品</a></li>
-                <li><a class="i-nav" href="javascript:;">套胶</a>
-                  <dl>
-                    <dd><a href="#">国产运动服</a></dd>
-                    <dd><a href="#">短裤</a></dd>
-                    <dd><a href="#">短袖</a></dd>
-                    <dd class="last_list"><a href="#">国产运动服</a></dd>
-                  </dl>
-                </li>
-                <li><a class="i-nav" href="javascript:;">底板</a>
-                  <dl>
-                    <dd><a href="#">国产运动服</a></dd>
-                    <dd><a href="#">短裤</a></dd>
-                    <dd><a href="#">短袖</a></dd>
-                    <dd class="last_list"><a href="#">国产运动服</a></dd>
-                  </dl>
-                </li>
-                <li>
-                  <a class="i-nav" href="javascript:;">服装</a>
-                  <dl>
-                    <dd><a href="#">国产运动服</a></dd>
-                    <dd><a href="#">短裤</a></dd>
-                    <dd><a href="#">短袖</a></dd>
-                    <dd><a href="#">套服</a></dd>
-                    <dd><a href="#">球袜</a></dd>
-                    <dd class="last_list"><a href="#">国产运动服</a></dd>
-                  </dl>
-                </li>
-                <li><a class="i-nav" href="javascript:;">运动鞋</a></li>
-                <li><a class="i-nav" href="javascript:;">球包</a></li>
-                <li><a class="i-nav" href="javascript:;">成品拍</a></li>
-                <li><a class="i-nav" href="javascript:;">球台</a></li>
-                <li class="last_list"><a class="i-nav" href="javascript:;">附件</a></li>
-                
+<?php
+foreach ($category_name_array as $k => $v) {
+?>
+				<li><a class="i-nav <?php if ($product_class == $k) echo 'on';?>" href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $k;?>"><?php echo $v;?></a></li>
+<?php
+}
+?>
             </ul>            
         </div>
 
@@ -56,7 +30,7 @@
                         
                             <div class="zoom-section">        
                                 <div class="zoom-small-image">
-                                    <a href='<?php echo CSS_URL;?>/images/product.jpg' class = 'cloud-zoom' id='zoom1' rel="adjustX:10, adjustY:-4"><img src="<?php echo CSS_URL;?>/images/product1.jpg" alt='' title="" /></a>
+                                    <a href='<?php echo CSS_URL;?>/images/product.jpg' class = 'cloud-zoom' id='zoom1' rel="adjustX:10, adjustY:-4"><img src="<?php echo CSS_URL;?>/upload/img/<?php echo $show_detail['no']?>_small.jpg" alt='' title="" /></a>
                                 </div>
                             </div>
                         
@@ -64,21 +38,19 @@
                         <div class="product-right">
                             <p class="pr_title">国产运动服套装WSW427</p>
                             <table class="pr_info">
-                                <tr><td width="80">规格</td><td>12345</td></tr>
-                                <tr><td>市场价</td><td><p class="pr_price">￥<span>498.00</span></p></td></tr>
-                                <tr><td>颜色分类</td><td class="small_pr"><img src="<?php echo CSS_URL;?>/images/x_p1.jpg"><img src="<?php echo CSS_URL;?>/images/x_p2.jpg"><img src="<?php echo CSS_URL;?>/images/x_p3.jpg"></td></tr>
-                                <tr><td>尺寸</td><td>S、M、L、XL、2XL、3XL、4XL</td></tr>
-                                <tr><td>面料</td><td>涤纶100%</td></tr>
-                                <tr><td>产品简介</td><td>简介简介简介简介</td></tr>
+<?php
+foreach ($show_detail as $k => $v) {
+?>
+								<tr><td width="100px;"><?php echo $v['name'];?></td><td><?php echo $v['value'];?></td></tr>
+<?php
+}
+?>
                             </table>
                         </div>
                     </div>
                     <div class="clear"></div>
                     <div class="product-intr">
-                        <img src="<?php echo CSS_URL;?>/images/pt1.jpg">
-                        <img src="<?php echo CSS_URL;?>/images/ptt1.jpg">
-                        <img src="<?php echo CSS_URL;?>/images/pt2.jpg">
-                        <img src="<?php echo CSS_URL;?>/images/ptt2.jpg" style="margin-top:20px;">
+                        <img src="<?php echo CSS_URL;?>/upload/img/<?php echo $show_detail['no']?>_big.jpg">
                     </div>
                 </div>
 
