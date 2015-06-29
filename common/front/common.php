@@ -90,7 +90,7 @@ function translate_name($k) {
 	$data['qiu_pai_zhong_lei']	= '球拍种类';
 	$data['ban_mian_chi_cun']	= '版面尺寸';
 	$data['shou_bing_chi_cun']	= '手柄尺寸';
-
+	$data['zi_lei_bie']					= '子类别';
 	// 	$data['']		= '';
 	// 	$data['']		= '';
 	// 	$data['']		= '';

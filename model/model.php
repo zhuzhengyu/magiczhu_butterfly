@@ -79,6 +79,18 @@ class model{
 	}
 
 	/**
+	 * @method 获取不同类别数量
+	 */
+	public function get_distinct($param) {
+		$sql = 'SELECT distinct(`' . $param . '`) FROM ' . $this->table . ' WHERE is_delete = "0"';
+		$result = $this->con->query($sql);
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+
+	/**
 	 * @method 根据条件获取一条记录详情
 	 * @param array $param
 	 * @return array

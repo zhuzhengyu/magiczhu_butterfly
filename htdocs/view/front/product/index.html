@@ -7,9 +7,32 @@
             <ul>
 <?php
 foreach ($category_name_array as $k => $v) {
+	if ($product_class == $k) {
 ?>
-				<li><a class="i-nav <?php if ($product_class == $k) echo 'on';?>" href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $k;?>"><?php echo $v;?></a></li>
+				<li>
+					<a class="i-nav on" href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $k;?>"><?php echo $v;?></a>
 <?php
+		if ($zi_lei_bie && is_array($zi_lei_bie)) {
+?>
+					<dl style="display: block;">
+<?php
+			foreach ($zi_lei_bie as $kk => $vv) {
+?>
+						<dd><a href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $k;?>&zi_lei_bie=<?php echo $vv['zi_lei_bie'];?>"><?php echo $vv['zi_lei_bie'];?></a></dd>
+<?php
+			}
+?>
+					</dl>
+<?php
+		}
+?>
+				</li>
+<?php
+	} else {
+?>
+				<li><a class="i-nav" href="<?php echo SITE_URL;?>/product/index.php?product_class=<?php echo $k;?>"><?php echo $v;?></a></li>
+<?php
+	}
 }
 ?>
             </ul>            

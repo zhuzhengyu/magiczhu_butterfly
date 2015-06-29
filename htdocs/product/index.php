@@ -29,19 +29,19 @@ $per_page = $_GET['per_page'] ? $_GET['per_page'] : 12;
 
 if (!isset($category_name_array[$product_class])) $product_class = 'cheng_pin_pai';
 if ($product_class) {
-	$productModel = new productModel();
-	$condition['category_name']		= $product_class;
 	$offset = 12 * ($page_no - 1);
-	$list = $productModel->get_list_by_condition($condition, $per_page, $offset);
-	$max_row = $productModel->get_max_row($condition);
-
 	$model_name = $model_list[$product_class];
 	$model = new $model_name();
-	foreach ($list as $k => $v) {
-		$product_detail	= $model->get_detail_by_condition(array('no' => $v['no']));
-		$product_detail['real_product_id']	= $v['id'];
-		$product_list[] =	$product_detail;
+	$condition['is_delete']	= '0';
+	$condition['zi_lei_bie']	= $_GET['zi_lei_bie'];
+	$product_list = $model->get_list_by_condition($condition, $per_page, $offset);
+	$productModel = new productModel();
+	foreach ($product_list as $k => $v) {
+		$product_detail = $productModel->get_detail_by_condition(array('no' => $v['no']));
+		$product_list[$k]['real_product_id']	= $product_detail['id'];
 	}
+	$max_row = $model->get_max_row($condition);
+	$zi_lei_bie = $model->get_distinct('zi_lei_bie');
 }
 
 $first_page = 1;

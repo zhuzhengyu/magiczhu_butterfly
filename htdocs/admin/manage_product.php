@@ -233,71 +233,6 @@ function edit_product() {
 	include (ADMIN_VIEW_PATH . '/manage_product/edit_product.html');
 }
 
-//改变数组结构
-function change_array($data) {
-	foreach ($data as $k => $v) {
-		$new_data[$k]['value']		= $v;
-		$new_data[$k]['name']		= translate_name($k);
-	}
-	return $new_data;
-}
-
-//翻译部分字段
-function translate_name($k) {
-	$data['no']						= '存货编码';
-	$data['name']					= '品名';
-	$data['c_short_name']		= '中文简称';
-	$data['e_short_name']		= '字母简称';
-
-	$data['da_fa_lei_bie']			= '打法类别';
-	$data['hai_mian_hou_du']	= '海绵厚度';
-	$data['he_ban_zhong_lei']	= '合板种类';
-	$data['mu_cai']					= '木材';
-	$data['mian_ban_cai_zhi']	= '面板材质';
-	$data['chan_di']				= '产地';
-	$data['price']						= '零售价';
-	$data['color']					= '颜色';
-	$data['chi_cun']				= '尺寸';
-	$data['size']						= '尺寸';
-	$data['mian_liao']				= '面料';
-	$data['te_xing_1']				= '特性1';
-	$data['te_xing_2']				= '特性2';
-	$data['te_xing_3']				= '特性3';
-	$data['kuan_shi']				= '款式';
-	$data['mian_ban_hou_du']= '面板厚度';
-	$data['weight']					= '重量';
-	$data['zhuo_jiao']				= '桌脚';
-	$data['jiao_jie_mian']			= '脚截面';
-	$data['te_xing']					= '特性';
-	$data['qiu_pai_su_cai']		= '球拍素材';
-	$data['ban_bing_xing_zhuang']	= '板柄形状';
-	$data['tao_jiao_xuan_zhuan']	= '套胶旋转';
-	$data['tao_jiao_su_du']		= '套胶速度';
-	$data['tao_jiao_zhong_lei']	= '套胶种类';
-	$data['tao_jiao_yan_se']		= '套胶颜色';
-	$data['tao_jiao_tan_xing']	= '套胶弹性';
-	$data['tao_jiao_xuan_zhuang']	= '套胶选装';
-	$data['tao_jiao_ying_du']	= '套胶硬度';
-	$data['tao_jiao_te_xing']	= '套胶特性';
-	$data['tao_jiao_hou_du']	= '套胶厚度';
-	$data['chi_ma']					= '尺码';
-	$data['cai_zhi']					= '材质';
-	$data['xie_di']					= '鞋底';
-
-	$data['fan_tan_te_xing']		= '反弹特性';
-	$data['zhen_dong_te_xing']	= '震动特性';
-	$data['ban_mian_xing_zhuang']	= '版面形状';
-	$data['qiu_pai_hou_du']		= '球拍厚度';
-	$data['qiu_pai_zhong_lei']	= '球拍种类';
-	$data['ban_mian_chi_cun']	= '版面尺寸';
-	$data['shou_bing_chi_cun']	= '手柄尺寸';
-
-// 	$data['']		= '';
-// 	$data['']		= '';
-// 	$data['']		= '';
-	return $data[$k];
-}
-
 //提交编辑产品
 function commit_edit_product() {
 	$first_product['id']		= $_POST['first_detail_id'];
@@ -358,6 +293,7 @@ function load_cheng_pin_pai($data) {
 		$param['mian_ban_cai_zhi']	= $v['I'];
 		$param['chan_di']					= $v['J'];
 		$param['price']						= $v['K'];
+		$param['zi_lei_bie']				= $v['L'];
 		$model->add($param);
 	}
 }
@@ -379,6 +315,7 @@ function load_fu_zhuang($data) {
 		$param['te_xing_3']			= $v['J'];
 		$param['chan_di']				= $v['K'];
 		$param['price']					= $v['L'];
+		$param['zi_lei_bie']			= $v['M'];
 		$model->add($param);
 	}
 }
@@ -399,6 +336,7 @@ function load_fu_jian($data) {
 		$param['te_xing_3']			= $v['I'];
 		$param['chan_di']				= $v['J'];
 		$param['price']					= $v['K'];
+		$param['zi_lei_bie']			= $v['L'];
 		$model->add($param);
 	}
 }
@@ -421,6 +359,7 @@ function load_ping_pang_qiu_tai($data) {
 		$param['te_xing']				= $v['K'];
 		$param['chan_di']				= $v['L'];
 		$param['price']					= $v['M'];
+		$param['zi_lei_bie']			= $v['N'];
 		$model->add($param);
 	}
 }
@@ -448,6 +387,7 @@ function load_qiu_pai($data) {
 		$param['shou_bing_chi_cun']	= $v['P'];
 		$param['chan_di']					= $v['Q'];
 		$param['price']						= $v['R'];
+		$param['zi_lei_bie']				= $v['S'];
 		$model->add($param);
 	}
 }
@@ -471,6 +411,7 @@ function load_tao_jiao($data) {
 		$param['tao_jiao_ying_du']	= $v['L'];
 		$param['chan_di']					= $v['M'];
 		$param['price']						= $v['N'];
+		$param['zi_lei_bie']				= $v['O'];
 		$model->add($param);
 	}
 }
@@ -492,6 +433,7 @@ function load_yun_dong_bao($data) {
 		$param['te_xing_3']				= $v['J'];
 		$param['chan_di']					= $v['K'];
 		$param['price']						= $v['L'];
+		$param['zi_lei_bie']				= $v['M'];
 		$model->add($param);
 	}
 }
@@ -513,6 +455,7 @@ function load_yun_dong_xie($data) {
 		$param['te_xing_3']				= $v['J'];
 		$param['chan_di']					= $v['K'];
 		$param['price']						= $v['L'];
+		$param['zi_lei_bie']				= $v['M'];
 		$model->add($param);
 	}
 }
@@ -531,6 +474,7 @@ function get_excel($data) {
 	$type['成品拍']['I'] = '面板材质';
 	$type['成品拍']['J'] = '产地';
 	$type['成品拍']['K'] = '零售价';
+	$type['成品拍']['L']	= '子类别';
 	//服装
 	$type['服装']['A'] = '存货编码';
 	$type['服装']['B'] = '品名';
@@ -544,6 +488,7 @@ function get_excel($data) {
 	$type['服装']['J'] = '特性3';
 	$type['服装']['K'] = '产地';
 	$type['服装']['L'] = '零售价';
+	$type['服装']['M']	= '子类别';
 	//附件
 	$type['附件']['A'] = '存货编码';
 	$type['附件']['B'] = '品名';
@@ -556,6 +501,7 @@ function get_excel($data) {
 	$type['附件']['I'] = '特性3';
 	$type['附件']['J'] = '产地';
 	$type['附件']['K'] = '零售价';
+	$type['附件']['L']	= '子类别';
 	//乒乓球台
 	$type['乒乓球台']['A'] = '存货编码';
 	$type['乒乓球台']['B'] = '品名';
@@ -570,6 +516,7 @@ function get_excel($data) {
 	$type['乒乓球台']['K'] = '特性';
 	$type['乒乓球台']['L'] = '产地';
 	$type['乒乓球台']['M'] = '零售价';
+	$type['乒乓球台']['N']	= '子类别';
 	//球拍
 	$type['球拍']['A'] = '存货编码';
 	$type['球拍']['B'] = '品名';
@@ -589,6 +536,7 @@ function get_excel($data) {
 	$type['球拍']['P'] = '手柄尺寸';
 	$type['球拍']['Q'] = '产地';
 	$type['球拍']['R'] = '零售价';
+	$type['球拍']['S']	= '子类别';
 	//套胶
 	$type['套胶']['A'] = '存货编码';
 	$type['套胶']['B'] = '品名';
@@ -604,6 +552,7 @@ function get_excel($data) {
 	$type['套胶']['L'] = '套胶硬度';
 	$type['套胶']['M'] = '产地';
 	$type['套胶']['N'] = '零售价';
+	$type['套胶']['O']	= '子类别';
 	//运动包
 	$type['运动包']['A'] = '存货编码';
 	$type['运动包']['B'] = '品名';
@@ -617,6 +566,7 @@ function get_excel($data) {
 	$type['运动包']['J'] = '特性3';
 	$type['运动包']['K'] = '产地';
 	$type['运动包']['L'] = '零售价';
+	$type['运动包']['M']	= '子类别';
 	//运动鞋
 	$type['运动鞋']['A'] = '存货编码';
 	$type['运动鞋']['B'] = '品名';
@@ -631,6 +581,7 @@ function get_excel($data) {
 	$type['运动鞋']['K'] = '特性3';
 	$type['运动鞋']['L'] = '产地';
 	$type['运动鞋']['M'] = '零售价';
+	$type['运动鞋']['N']	= '子类别';
 
 	foreach ($type as $k => $v) {
 		if ($v == $data) return $k;

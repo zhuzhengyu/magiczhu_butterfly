@@ -30,7 +30,7 @@ foreach ($category_name_array as $k => $v) {
                         
                             <div class="zoom-section">        
                                 <div class="zoom-small-image">
-                                    <a href='<?php echo CSS_URL;?>/images/product.jpg' class = 'cloud-zoom' id='zoom1' rel="adjustX:10, adjustY:-4"><img src="<?php echo CSS_URL;?>/upload/img/<?php echo $show_detail['no']?>_small.jpg" alt='' title="" /></a>
+                                    <a href='<?php echo CSS_URL;?>/images/product.jpg' class = 'cloud-zoom' id='zoom1' rel="adjustX:10, adjustY:-4"><img src="<?php echo CSS_URL;?>/upload/img/<?php echo $show_detail['no']['value'];?>_small.jpg" alt='' title="" /></a>
                                 </div>
                             </div>
                         
@@ -50,7 +50,7 @@ foreach ($show_detail as $k => $v) {
                     </div>
                     <div class="clear"></div>
                     <div class="product-intr">
-                        <img src="<?php echo CSS_URL;?>/upload/img/<?php echo $show_detail['no']?>_big.jpg">
+                        <img src="<?php echo CSS_URL;?>/upload/img/<?php echo $show_detail['no']['value'];?>_big.jpg">
                     </div>
                 </div>
 
