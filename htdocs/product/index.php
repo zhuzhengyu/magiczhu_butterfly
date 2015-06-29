@@ -33,7 +33,7 @@ if ($product_class) {
 	$model_name = $model_list[$product_class];
 	$model = new $model_name();
 	$condition['is_delete']	= '0';
-	$condition['zi_lei_bie']	= $_GET['zi_lei_bie'];
+	if (isset($_GET['zi_lei_bie']) && $_GET['zi_lei_bie']) $condition['zi_lei_bie']	= $_GET['zi_lei_bie'];
 	$product_list = $model->get_list_by_condition($condition, $per_page, $offset);
 	$productModel = new productModel();
 	foreach ($product_list as $k => $v) {
