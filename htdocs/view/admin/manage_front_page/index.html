@@ -25,9 +25,10 @@
 .files{height:22px; line-height:22px; margin:10px 0}
 .delimg{margin-left:20px; color:#090; cursor:pointer}
 </style>
-<body id="body_content">
+<body>
+<div id="body_content">
 <?php echo $body;?>
-
+</div>
 </body>
 </html>
 
@@ -308,7 +309,7 @@
 	}
 	
 	$('body').keypress(function(e){
-		if(e.ctrlKey && e.which == 13 || e.which == 10) {
+		if(e.ctrlKey && (e.which == 13 || e.which == 10)) {
 			show_div();
 			var div = '';
 			

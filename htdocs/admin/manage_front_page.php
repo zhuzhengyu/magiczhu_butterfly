@@ -9,15 +9,24 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 $action();
 
 function index() {
-	$model = new indexPageModel();
-	$detail = $model->get_detail_by_id(1);
-	$body = base64_decode($detail['data']);
+// 	$model = new indexPageModel();
+// 	$detail = $model->get_detail_by_id(1);
+// 	$body = base64_decode($detail['data']);
+
+	$body = file_get_contents(FRONT_VIEW_PATH . '/body.html');
 
 	include (ADMIN_VIEW_PATH . '/manage_front_page/index.html');
 }
 
 //保存body中数据
 function save_data() {
+	$result = file_put_contents(FRONT_VIEW_PATH . '/body.html', $_POST['data']);
+	if ($result > 0) {
+		exit('success');
+	} else {
+		exit('fail');
+	}
+	exit;
 	$data = $_POST['data'];
 	$param['id']		= 1;
 	$param['data']	= base64_encode($_POST['data']);
@@ -66,7 +75,7 @@ function upload_img_ajax() {
 				exit;
 			}
 			$type = strstr($picname, '.');
-			if ($type != ".gif" && $type != ".jpg") {
+			if ($type != ".gif" && $type != ".jpg" && $type != ".png") {
 				echo '图片格式不对！';
 				exit;
 			}
