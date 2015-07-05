@@ -3,9 +3,9 @@
 <?php include(BASE_PATH . '/htdocs/body.php');?>
 
 
-    <script type="text/javascript" src="<?php echo CSS_URL;?>/js/jquery.min.js?<?php echo CSS_VERSION;?>"></script>
-    <script type="text/javascript" src="<?php echo CSS_URL;?>/js/com.js?<?php echo CSS_VERSION;?>"></script>
-    <script type="text/javascript" src="<?php echo CSS_URL;?>/js/jquery.jslides.js?<?php echo CSS_VERSION;?>"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo CSS_URL;?>/js/com.js"></script>
+    <script type="text/javascript" src="<?php echo CSS_URL;?>/js/jquery.jslides.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -17,8 +17,7 @@
             });
             
             $(".banner-box").slide({
-          
-            	titCell:".hd ul",
+                titCell:".hd ul",
                 mainCell:".bd ul",
                 effect:"fold",
                 interTime:3500,
