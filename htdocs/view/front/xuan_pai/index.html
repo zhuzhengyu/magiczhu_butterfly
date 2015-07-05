@@ -1,0 +1,272 @@
+<?php include(BASE_PATH . '/htdocs/header.php');?>
+    <div class="n_banner"></div>
+
+    <div class="container">
+        <div class="side-nav">
+            <p><img src="<?php echo CSS_URL;?>/images/l_logo.png"></p>
+            <ul>
+                <li><a class="i-nav on" href="javascript:;">媒体集锦</a></li>
+                <li><a class="i-nav" href="javascript:;">每月期刊</a></li>
+                <li><a class="i-nav" href="javascript:;">活动赛事预告</a></li>
+                <li><a class="i-nav" href="javascript:;">扫一扫</a></li>
+                <li><a class="i-nav" href="javascript:;">智能选拍</a></li>
+                <li><a class="i-nav" href="javascript:;">附近的经销商</a></li>
+                <li><a class="i-nav" href="javascript:;">邮件订阅</a></li>
+                <li class="last_list"><a class="i-nav" href="javascript:;">真伪查询</a></li>
+                
+            </ul>            
+        </div>
+
+        <div class="main-content">
+           <div class="title clearfix">
+                <p>智能选拍<span>CAPACITY</span></p>
+                <div class="local">
+                    当前位置：<a href="#">首页</a> > <a class="current" href="#">智能选拍</a>
+                </div>
+           </div>
+           <div class="con-body">                
+                <div class="con">
+                    <p class="capacity_title">即答！&nbsp;&nbsp;套胶&底板 搜索</p>
+                    <div class="select_pp_l">
+                        <div class="select_pp">
+                            <p class="select_pp_title">Q1.&nbsp;&nbsp;&nbsp;您要查询的用品？（请选择其中一点）</p>
+                            <div class="select_pp_con">
+                                <p class="select_pp_info">底板<span>套胶</span></p>
+                                <div class="select_pp_left">
+                                    <ul class="dowebok">
+                                        <li><input type="radio" name="radio" data-labelauty="横拍"></li>
+                                        <li><input type="radio" name="radio" data-labelauty="直拍"></li>
+                                    </ul>
+                                </div>
+                                <div class="select_pp_right">
+                                    <ul class="dowebok">
+                                        <li><input type="radio" name="radio" data-labelauty="反胶套胶"></li>
+                                        <li><input type="radio" name="radio" data-labelauty="正胶套胶"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="select_pp">
+                            <p class="select_pp_title">Q2.&nbsp;&nbsp;&nbsp;您要查询的种类？（请选择其中一点）</p>
+                            <div class="select_pp_con">
+                                <div class="select_pp_left">
+                                    <ul class="dowebok">
+                                        <li><input type="radio" name="zhonglei" data-labelauty="攻击型（纯木板）"></li>
+                                        <li><input type="radio" name="zhonglei" data-labelauty="防守型"></li>
+                                        <li><input type="radio" name="zhonglei" data-labelauty="不选"></li>
+                                    </ul>
+                                </div>
+                                <div class="select_pp_right">
+                                    <ul class="dowebok">
+                                        <li><input type="radio" name="zhonglei" data-labelauty="攻击型（特殊素材合板）"></li>
+                                        <li><input type="radio" name="zhonglei" data-labelauty="全面打法"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="select_pp">
+                            <p class="select_pp_title">Q3.&nbsp;&nbsp;&nbsp;现在使用的产品？</p>
+                            <div class="select_pp_con">
+                                <a class="select_pro" href="javascript:;">选择现在使用的产品    ></a>
+                                <a class="select_pro" href="javascript:;">不对现在使用的产品进行选择   ></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="select_pp_r">
+                        <div class="select_pp">
+                            <p class="select_pp_title">Q4.&nbsp;&nbsp;&nbsp;请指定您最重视的项目？</p>
+                            <div class="select_pp_con">
+                                <div class="select_pp_left">
+                                    <ul class="dowebok">
+                                        <li><input type="radio" name="xiangmu" data-labelauty="速度"></li>
+                                        <li><input type="radio" name="xiangmu" data-labelauty="控制"></li>
+                                    </ul>
+                                </div>
+                                <div class="select_pp_right">
+                                    <ul class="dowebok">
+                                        <li><input type="radio" name="xiangmu" data-labelauty="击球感"></li>
+                                        <li><input type="radio" name="xiangmu" data-labelauty="重量"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="select_pp">
+                            <p class="select_pp_title">Q5.&nbsp;&nbsp;&nbsp;请指定您最重视的项目？</p>
+                            <div class="select_pp_con">
+                                <fieldset>
+                                    <p class="select_name">速度</p>
+                                    <div id="slidercontainer1"></div>
+                                    <p class="select_sx">慢<span>快</span></p>
+                                </fieldset>
+                                <fieldset>
+                                    <p class="select_name">旋转</p>
+                                    <div id="slidercontainer2"></div>
+                                    <p class="select_sx">软（少）<span>硬（多）</span></p>
+                                </fieldset>
+                                <fieldset>
+                                    <p class="select_name">控制</p>
+                                    <div id="slidercontainer3"></div>
+                                    <p class="select_sx">易操控<span>破坏力</span></p>
+                                </fieldset>
+                                <fieldset>
+                                    <p class="select_name">硬度</p>
+                                    <div id="slidercontainer4"></div>
+                                    <p class="select_sx">轻（软）<span>重（硬）</span></p>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <a href="#" class="query_fruit">查看结果</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+
+    <script src="http://cdn.bootcss.com/jquery/1.2.6/jquery.min.js"></script>
+    <script>
+        var jq126 = jQuery.noConflict(true);
+    </script>
+    <script src="http://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+    <script src="<?php echo CSS_URL;?>/js/com.js"></script>
+    <script src="<?php echo CSS_URL;?>/js/jquery-labelauty.js"></script>
+    
+    <script>
+        (function(jq126){ 
+            jq126.extend(jq126.fn, {  
+                /*实现一个jquery滑动条插件*/  
+                jSlider: function(setting){  
+                    var ps = jq126.extend({  
+                        renderTo: jq126(document.body),  
+                        enable: true,  
+                        initPosition: 'max',  
+                        size: {barWidth: 200,sliderWidth: 5},  
+                        barCssName: 'defaultbar',  
+                        completedCssName: 'jquery-completed',  
+                        sliderCssName: 'jquery-jslider',  
+                        sliderHover: 'jquery-jslider-hover',  
+                        onChanging: function(){  
+                        },  
+                        onChanged: function(){  
+                        }  
+                    }, setting);  
+                      
+                      
+                    //强制将renderTo强制转换成jQuery对象  
+                    ps.renderTo = (typeof ps.renderTo == 'string' ? jq126(ps.renderTo) : ps.renderTo);  
+                      
+                    //渲染UI  
+                    var sliderbar = jq126('<div><div>&nbsp;</div><div>&nbsp;</div></div>')  
+                                    .attr('class', ps.barCssName)  
+                                        .css('width', ps.size.barWidth)  
+                                            .appendTo(ps.renderTo);  
+                      
+                    var completedbar = sliderbar.find('div:eq(0)')  
+                                            .attr('class', ps.completedCssName);  
+                      
+                    var slider = sliderbar.find('div:eq(1)')  
+                                .attr('class', ps.sliderCssName)  
+                                    .css('width', ps.size.sliderWidth);  
+                      
+                      
+                    var bw = sliderbar.width(), sw = slider.width();  
+                      
+                    ps.limited = {min: 0, max: bw - sw};  
+                      
+                    //定位completedbar的填充长度以及slider左侧距离  
+                    if (typeof window.jq126sliderProcess == 'undefined') {  
+                        window.jq126sliderProcess = new Function('obj1', 'obj2', 'left',   
+                                                        'obj1.css(\'left\',left);obj2.css(\'width\',left);');  
+                    }  
+                      
+          
+                    //eval('ps.limited.' + ps.initPosition)来获取，从而避免switch操作  
+                    //此处相当于调用 sliderProcess(xx,xx,xxx)   执行slider.css('left',value);completedbar.css('left',value)  
+                    jq126sliderProcess(slider, completedbar, 130);  
+                      
+                    /*jQuery拖拽功能*/  
+                    var slide = {  
+                        drag: function(e){  
+                            var d = e.data;  
+                              
+                            var l=Math.min(Math.max(e.pageX - d.pageX + d.left, ps.limited.min), ps.limited.max);  
+                              
+                            jq126sliderProcess(slider,completedbar,l);  
+                              
+                            ps.onChanging(l/ps.limited.max,e);  
+                        },  
+                          
+                        drop:function(e){  
+                            slider.removeClass(ps.sliderHover);  
+                              
+                            ps.onChanged(parseInt(slider.css('left'))/ps.limited.max,e);  
+                            //去除绑定  
+                            jq126().unbind('mousemove',slide.drag).unbind('mouseup',slide.drop);  
+                        }  
+                    };  
+                      
+        //          jSlider enable属性为true时，在end-user按下鼠标时绑定mousemove事件，在鼠标弹起时移除，我们只需要同步更新slider的left 属性和completedbar的width即可，同时在drag中绑定onChanging方法，在drop中绑定onChanged方法，向这两个方法推送的参数相同，1>百分比，即value值，介于0~1，2>event。  
+                    if(ps.enable){  
+                        slider.bind('mousedown',function(e){  
+                            var d={  
+                                left:parseInt(slider.css('left')),  
+                                pageX:e.pageX  
+                            }  
+                            jq126(this).addClass(ps.sliderHover);  
+                            jq126().bind('mousemove',d,slide.drag).bind('mouseup',d,slide.drop);  
+                        });  
+                    }  
+                      
+                    slider.data = { bar: sliderbar, completed: completedbar };  
+                    return slider;  
+                }  
+            });  
+        })(jq126); 
+ 
+            jq126().ready(function(){  
+                jq126.fn.jSlider({  
+                    renderTo: '#slidercontainer1',  
+                    size: {  
+                        barWidth: 260,  
+                        sliderWidth: 15  
+                    }
+                });  
+            });
+            jq126().ready(function(){  
+                jq126.fn.jSlider({  
+                    renderTo: '#slidercontainer2',  
+                    size: {  
+                        barWidth: 260,  
+                        sliderWidth: 15  
+                    }
+                });  
+            });
+            jq126().ready(function(){  
+                jq126.fn.jSlider({  
+                    renderTo: '#slidercontainer3',  
+                    size: {  
+                        barWidth: 260,  
+                        sliderWidth: 15  
+                    }
+                });  
+            });
+            jq126().ready(function(){  
+                jq126.fn.jSlider({  
+                    renderTo: '#slidercontainer4',  
+                    size: {  
+                        barWidth: 260,  
+                        sliderWidth: 15  
+                    }
+                });  
+            });
+        </script>
+
+
+<script>
+$(function(){
+    $('.dowebok :input').labelauty();
+});
+</script>
+
+<?php include(BASE_PATH . '/htdocs/footer.php');?>
